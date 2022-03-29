@@ -1,0 +1,4 @@
+dao\DBOperations.class
+services\getEmail.class
+dao\DBConnectivity.class
+controller\CheckEmailController.class

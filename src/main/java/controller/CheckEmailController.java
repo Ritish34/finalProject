@@ -1,0 +1,60 @@
+package controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import dao.DBOperations;
+import services.getEmail;
+
+/**
+ * Servlet implementation class CheckEmailController
+ */
+@WebServlet("/CheckEmail")
+public class CheckEmailController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CheckEmailController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    private final static Logger logger = LogManager.getLogger(CheckEmailController.class);
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		PrintWriter out = response.getWriter();
+		
+		String email = request.getParameter("emailId");
+		logger.info("Inside Controller");
+		
+		try {
+			if(getEmail.checkDup(email)) {
+				out.write("Duplicate");
+			}
+			else {
+				out.write("New");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			out.print(e);
+		}
+	}
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags-->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Colorlib Templates">
+<!-- <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates"> -->
+
+<!-- Title Page-->
+<title>New User Registration Form</title>
+
+<!-- Icons font CSS-->
+<link
+	href="resources/reg/vendor/mdi-font/css/material-design-iconic-font.min.css"
+	rel="stylesheet" media="all">
+<link href="resources/reg/vendor/font-awesome-4.7/css/font-awesome.min.css"
+	rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+	rel="stylesheet">
+
+<!-- Vendor CSS-->
+<link href="resources/reg/vendor/select2/select2.min.css" rel="stylesheet"
+	media="all">
+<link href="resources/reg/vendor/datepicker/daterangepicker.css"
+	rel="stylesheet" media="all">
+
+<!-- Main CSS-->
+<link href="resources/reg/css/main.css" rel="stylesheet" media="all">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="resources/reg/css/style.css">
+</head>
+
+<body>
+	<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+		<div class="wrapper wrapper--w790">
+			<div class="card card-5">
+				<div class="card-heading">
+					<h2 class="title">Registration Form</h2>
+				</div>
+				<div class="card-body">
+					<form name = "reg_form" id="reg_form" action="#" method="POST">
+						<div class="form-row m-b-55">
+							<div class="name">Name</div>
+							<div class="value">
+								<div class="row row-space">
+									<div class="col-2">
+										<div class="input-group-desc">
+											<label class="label--desc">First Name</label> <input
+												class="input--style-5" type="text" name="first_name"
+												placeholder="Firstname">
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="input-group-desc">
+											<label class="label--desc">Last Name</label> <input
+												class="input--style-5" type="text" name="last_name"
+												placeholder="Lastname">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="name">Email</div>
+							<div class="value">
+								<div class="input-group">
+									<input class="input--style-5" type="email" name="email"
+										id="email" onfocusout='checkEmail()'>
+										<div id = "emailStatus"></div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="name">Password</div>
+							<div class="value">
+								<div class="input-group">
+									<input class="input--style-5" type="password" name="password">
+								</div>
+							</div>
+						</div>
+						<div class="form-row m-b-55">
+							<div class="name">Date Of Birth</div>
+							<div class="value">
+								<div class="row row-refine">
+									<div class="col-9">
+										<div class="input-group-desc">
+											<input class="input--style-4" type="date" name="date">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row m-b-55">
+							<div class="name">Phone</div>
+							<div class="value">
+								<div class="row row-refine">
+									<div class="col-9">
+										<div class="input-group-desc">
+											<label class="label--desc">Phone Number</label> <input
+												class="input--style-5" type="text" name="phone">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row ">
+							<div class="name">Gender</div>
+							<div class="p-t-15">
+								<label class="radio-container m-r-55">Male <input
+									type="radio" checked="checked" name="gender"> <span
+									class="checkmark"></span>
+								</label> <label class="radio-container">Female <input
+									type="radio" name="gender"> <span class="checkmark"></span>
+								</label>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="name">Language</div>
+							<div class="p-t-15">
+								<label class="radio-container m-r-45"> <input
+									type="checkbox" name="checkbox">Java <span
+									class="check"></span>
+								</label> <label class="radio-container m-r-45"> <input
+									type="checkbox" name="checkbox">Python <span
+									class="check"></span>
+								</label> <label class="radio-container "> <input type="checkbox"
+									name="checkbox">C++ <span class="check"></span>
+								</label>
+							</div>
+						</div>
+						<div data-duplicate="demo">
+							<fieldset>
+								<legend>Address</legend>
+								<div class="form-row">
+									<div class="value">
+										<div class="input-group">
+											<div class="row row-space">
+												<div class="input-group-desc m-b-40">
+													<label class="label--desc ">Address</label>
+													<textarea class="input--style-5 " name="address" rows="4"
+														cols="50"></textarea>
+												</div>
+											</div>
+											<div class="row row-space">
+												<div class="col-2">
+													<div class="input-group-desc m-b-40">
+														<label class="label--desc">Zipcode</label> <input
+															class="input--style-5 w-50 m-t-b-20" type="text"
+															name="zip" placeholder="Zipcode">
+													</div>
+												</div>
+												<div class="col-2">
+													<div class="input-group-desc m-b-40">
+														<label class="label--desc">City</label> <input
+															class="input--style-5 w-50 m-t-b-20" type="text"
+															name="city" placeholder="City">
+													</div>
+												</div>
+											</div>
+											<div class="row row-space">
+												<div class="col-2">
+													<div class="input-group-desc m-b-40">
+														<label class="label--desc">State</label> <input
+															class="input--style-5 w-50 m-t-b-15" type="text"
+															name="state" placeholder="State">
+													</div>
+												</div>
+												<div class="col-2">
+													<div class="input-group-desc m-b-40">
+														<label class="label--desc">Country</label> <input
+															class="input--style-5 w-50 m-t-b-15" type="text"
+															name="contry" placeholder="Contry">
+													</div>
+												</div>
+											</div>
+											<button class=" btn--blue" data-duplicate-remove="demo"
+												type="button">- remove</button>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<button class="btn btn--radius btn--blue"
+							data-duplicate-add="demo" type="button">+ add</button>
+						<div>
+							<button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Jquery JS-->
+	<script src="resources/reg/vendor/jquery/jquery.min.js"></script>
+	<!-- Validation js -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+	<!-- Vendor JS-->
+	<script src="resources/reg/vendor/select2/select2.min.js"></script>
+	<script src="resources/reg/vendor/datepicker/moment.min.js"></script>
+	<script src="resources/reg/vendor/datepicker/daterangepicker.js"></script>
+
+	<script src="resources/reg/js/jquery.duplicate.js"></script>
+
+	<!-- Main JS-->
+	<script src="resources/reg/js/global.js"></script>
+	<!-- Custom JS -->
+	<script src="resources/reg/js/custom.js"></script>
+
+</body>
+
+</html>
+<!-- end document-->
