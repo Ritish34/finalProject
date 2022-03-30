@@ -34,9 +34,10 @@
             <div class="card card-5">
                 <div class="card-heading">
                     <h2 class="title"> Registration Form</h2>
+                    <h4 style="color:red;" id="result"></h4>
                 </div>
                 <div class="card-body">
-                    <form name="reg_form" action="RegController" method="POST">
+                    <form name="reg_form" action="RegController" method="POST" >
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -103,11 +104,11 @@
                             <div class="name">Gender</div>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">Male
-                                    <input type="radio" checked="checked" name="gender">
+                                    <input type="radio" checked="checked" name="gender" value="male">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">Female
-                                    <input type="radio" name="gender">
+                                    <input type="radio" name="gender" value="female">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -116,20 +117,20 @@
                             <div class="name">Language</div>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-45">
-                                    <input type="checkbox"  name="checkbox">Java
+                                    <input type="checkbox"  name="checkbox" value="Java">Java
                                     <span class="check"></span>
                                 </label>
                                 <label class="radio-container m-r-45">
-                                    <input type="checkbox"  name="checkbox">Python
+                                    <input type="checkbox"  name="checkbox" value="Python">Python
                                     <span class="check"></span>
                                 </label>
                                 <label class="radio-container ">
-                                    <input type="checkbox"  name="checkbox">C++
+                                    <input type="checkbox"  name="checkbox" value="C++">C++
                                     <span class="check"></span>
                                 </label>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
@@ -138,7 +139,7 @@
                         </div>
                         <div >
                             <img id="show_image" width="100" height="100">
-                        </div>
+                        </div> -->
                         <div data-duplicate="demo">
                         <fieldset>
                             <legend>Address</legend>
@@ -186,18 +187,6 @@
                         </fieldset>
                     </div>
                         <button class="btn btn--radius btn--blue" data-duplicate-add="demo" type="button">+ add</button>
-                        <!-- <div class="form-row">
-                            <div id="demo" data-duplicate="demo">
-                                <div class="name">Address</div>
-                                <div class="value">
-                                    <div class="input-group">
-                                        <textarea  name="address" rows="4" cols="50"></textarea>
-                                        <span class="error"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn  btn--red" data-duplicate-add="demo" type="button">+ add</button>
-                        </div> -->
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
                         </div>
