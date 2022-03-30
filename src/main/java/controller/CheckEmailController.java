@@ -3,8 +3,6 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import dao.DBOperations;
-import services.getEmail;
+import services.checkEmail;
 
 /**
  * Servlet implementation class CheckEmailController
@@ -43,10 +40,10 @@ public class CheckEmailController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String email = request.getParameter("emailId");
-		logger.info("Inside Controller");
+		logger.debug("Inside Controller");
 		
 		try {
-			if(getEmail.checkDup(email)) {
+			if(checkEmail.checkDup(email)) {
 				out.write("Duplicate");
 			}
 			else {

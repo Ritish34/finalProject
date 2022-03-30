@@ -47,6 +47,12 @@ $(function() {
 			},
 			contry: {
 				required: true
+			},
+			zip : {
+				required : true
+			},
+			state: {
+				required: true
 			}
 		},
 		// Specify validation error messages
@@ -89,4 +95,35 @@ function checkEmail() {
 				}
 			}
 		});
-	}
+}
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+      $('#show_image').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+function clearFile(){
+  const file =document.querySelector('#new_image');
+      file.value = '';
+      console.log("ok");
+}
+$("#new_image").change(function(){
+    //value of file
+    var imgName = $(this)[0].value;
+
+    //find extatntion of file
+    var extn = imgName.substring(imgName.lastIndexOf('.') + 1).toLowerCase();
+    //vallidation of image
+    if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg"){
+      readURL(this);
+    }
+    else{
+      clearFile();
+    } 
+
+});
+	
