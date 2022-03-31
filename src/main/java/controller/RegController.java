@@ -3,8 +3,10 @@ package controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,12 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import services.regdata;
+import model.Address;
+import model.User;
+import services.UserService;
+
 
 //@WebServlet("/RegController")
 public class RegController extends HttpServlet {
@@ -41,9 +45,6 @@ public class RegController extends HttpServlet {
 		//set response type
 		response.setContentType("text/html");
 		
-		//check session already started or not
-		HttpSession session = request.getSession(false);
-		
 		//get all data from registration page
 		String fname = request.getParameter("first_name");
 		String lname = request.getParameter("last_name");
@@ -52,13 +53,15 @@ public class RegController extends HttpServlet {
 		String date = request.getParameter("date");
 		String phone = request.getParameter("phone");
 		String gender = request.getParameter("gender");
+		
 		//convert checkbox data to string
 		String favlangs="";
 		String arr[]=request.getParameterValues("checkbox");
 		for(int i=0;i< arr.length;i++){
 			favlangs+=arr[i]+" ";
 		}
-		//take image input
+		
+//		//take image input
 //		String file=request.getParameter("file");
 //		Part filePart
 //        = request.getPart("file");
@@ -70,26 +73,41 @@ public class RegController extends HttpServlet {
 		String[] state = request.getParameterValues("state[]");
 		String[] contry = request.getParameterValues("contry[]");
 		
-//		out.println(fname);
-//		out.println(lname);
-//		out.println(email);
-//		out.println(pass);
-//		out.println(date);
-//		out.println(phone);
-//		out.println(gender);
-//		out.println(favlangs);
-//		out.println(filePart);
-//		out.print(address.length);
-//		out.print(city.length);
+		//create user object
+		User user = new User();
+		user.setFname(fname);
+		user.setLname(lname);
+		user.setEmail(email);
+		user.setGender(gender);
+		user.setLang(favlangs);
+		user.setPassword(pass);
+		user.setPhone(phone);
+		user.setDob(date);
+		user.setRole("User");
 		
+		ArrayList<Address> list = new ArrayList<Address>();
+		//create address object
+		for(int i=0;i<zip.length;i++) {
+			Address obj = new Address();
+			obj.setAddress(address[i]);
+			obj.setCity(city[i]);
+			obj.setContry(contry[i]);
+			obj.setState(state[i]);
+			obj.setZip(Integer.parseInt(zip[i]));
+			list.add(obj);
+		}
+				
 		try {
 			logger.info("Inside Registration Controller");
 			
+			UserService service = new UserService();
+			
 			//call dao method for storing data
-			boolean flag = regdata.regUser(fname,lname,email,pass,date,phone,gender,favlangs,address,zip,city,state,contry);//,file
+			boolean flag = service.saveUser(user,list);//,file
 			if(flag) {
 				
 				logger.info("Registration Sucessfull");
+				
 				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.include(request, response);
@@ -97,14 +115,14 @@ public class RegController extends HttpServlet {
 			else {
 				
 				logger.info("Registration Error");
+				
 				out.print("<center><h4 style='color:red;background:#9053c7;'>Registration fails</h4></center>");
 				RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 				rd.include(request, response);
 			}
-		} catch (ClassNotFoundException | FileNotFoundException | SQLException | ParseException e) {
+		} catch (ClassNotFoundException | FileNotFoundException | SQLException | ParseException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			out.print(e);
 		}
 	}
-
 }

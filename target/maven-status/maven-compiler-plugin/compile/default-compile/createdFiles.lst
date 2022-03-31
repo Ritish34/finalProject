@@ -1,5 +1,14 @@
-dao\DBOperations.class
-services\getEmail.class
-dao\DBConnectivity.class
+dao\UserDB.class
+services\UserService.class
 controller\CheckEmailController.class
+services\checkEmail.class
+dao\UserDBimp.class
+services\CheckLoginUser.class
+model\Address.class
+dao\DBOperations.class
+services\regdata.class
+controller\loginController.class
+util\Encryption.class
+dao\DBConnectivity.class
 controller\RegController.class
+model\User.class

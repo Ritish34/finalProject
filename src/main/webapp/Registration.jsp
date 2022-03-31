@@ -34,10 +34,10 @@
             <div class="card card-5">
                 <div class="card-heading">
                     <h2 class="title"> Registration Form</h2>
-                    <h4 style="color:red;" id="result"></h4>
+                    <h4 id="result"></h4>
                 </div>
                 <div class="card-body">
-                    <form name="reg_form" action="RegController" method="POST" >
+                    <form id="form" name="reg_form" action="RegController" method="POST" ><!-- enctype ="multiform/form-data" -->
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -62,7 +62,7 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email"
-										id="email" onfocusout='checkEmail()'>
+										id="email" onchange='checkEmail()'>
 										<div id = "emailStatus"></div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                     </div>
                         <button class="btn btn--radius btn--blue" data-duplicate-add="demo" type="button">+ add</button>
                         <div>
-                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                            <button class="btn btn--radius-2 btn--red" type="submit" id="submit">Register</button>
                         </div>
                     </form>
                 </div>

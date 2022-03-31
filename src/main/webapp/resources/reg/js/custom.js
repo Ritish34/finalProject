@@ -74,7 +74,39 @@ $(function() {
 			form.submit();
 		}
 	});
+	
+	/*$("form").submit(function(event)
+	{
+		const formdata = new FormData("#form");
+		console.log($("#form").serialize());
+		var form = document.getElementById("form");
+		console.log(new FormData(form));
+		$.ajax({
+			method:"POST",
+			url:"RegController",
+			data: {first_name : "ritish"},//$("#form").serialize()
+			enctype : "multiform/form-data",
+			
+			success:function(data){
+				console.log(data);
+				if(data === "Success"){
+					$('#result').html("Registration Sucessfull").css("color","green");
+				}
+				else
+				{
+					$('#result').html("Registration Fails!!").css("color","red");
+				}
+			},
+			processData:false,
+			contentType:false,
+			error: function(){
+                alert("error");
+            } 
+		});
+		event.preventDefault();
+	});*/
 });
+
 
 //create function to check entered eamail is already present into database or not 
 function checkEmail() {
@@ -84,6 +116,7 @@ function checkEmail() {
 		$.ajax({
 			method: "POST",
 			url: "CheckEmail",
+			async: false,
 			data: { emailId: emailInput },
 			success: function(data) {
 				if(data === "Duplicate"){
@@ -96,6 +129,12 @@ function checkEmail() {
 			}
 		});
 }
+
+//
+function submitData(){
+	var form = document.getElementById("form"); 
+}
+
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -124,6 +163,33 @@ $("#new_image").change(function(){
     else{
       clearFile();
     } 
-
 });
-	
+
+/*$(document).ready(function(){
+
+	//stop form to submit
+	$("#form").submit(function(e){
+		e.preventDefault();
+	});
+
+	//check for button click event
+	$("#submit").click(function(e){
+          
+		//get the form data and then serialize that
+		dataString = $("#form").serialize();
+		$.ajax({
+            url: "RegController",
+            type: "POST",
+            data:  dataString,
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(responseText){
+                alert(responseText);
+            },
+            error: function(){
+                alert("error");
+            }           
+        });
+	});	
+})*/

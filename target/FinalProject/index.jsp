@@ -42,7 +42,7 @@
 					<img src="resources/login/images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="POST" action="login">
 					<span class="login100-form-title"> User Login </span>
 
 					<!-- Email Address Field Code -->

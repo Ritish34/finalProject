@@ -2,6 +2,8 @@ package services;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -19,7 +21,7 @@ public class regdata {
 	//,String file
 	public static boolean regUser(String fname,String lname,String email,String pass, String date,String phone,
 			String gender,String favlangs,String[] address,String[] zip,String[] city,
-			String[] state,String[] contry) throws ClassNotFoundException, SQLException, IOException, ParseException {
+			String[] state,String[] contry) throws ClassNotFoundException, SQLException, IOException, ParseException, NoSuchAlgorithmException {
 		
 		
 		boolean flag1,flag2=false;
@@ -27,7 +29,17 @@ public class regdata {
 //		String pattern = "YYYY/MM/DD";
 //	    SimpleDateFormat format = new SimpleDateFormat(pattern);
 //	    Date date1 = (Date) format.parse(date);
-		Date date1 = Date.valueOf(date);
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		Date myDate = (Date) sdf.parse(date);
+//		sdf.applyPattern("yyyy/MM/dd");
+//		Date date1 = Date.valueOf();
+//		Date date = new Date(date);
+		
+//		java.sql.Date date1 = java.sql.Date.valueOf(date);
+		java.sql.Date date1 = java.sql.Date.valueOf(date);
+		
+		pass = enctry(pass);
+		
 		logger.info(date1);
 //		File image= new File(file);
 		
@@ -62,4 +74,24 @@ public class regdata {
 		return id;
 	}
 	
+	private static String enctry(String ele) throws NoSuchAlgorithmException {
+		 /* MessageDigest instance for MD5. */  
+        MessageDigest m = MessageDigest.getInstance("MD5");  
+          
+        /* Add plain-text password bytes to digest using MD5 update() method. */  
+        m.update(ele.getBytes());  
+          
+        /* Convert the hash value into bytes */   
+        byte[] bytes = m.digest();  
+          
+        /* The bytes array has bytes in decimal form. Converting it into hexadecimal format. */  
+        StringBuilder s = new StringBuilder();  
+        for(int i=0; i< bytes.length ;i++)  
+        {  
+            s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
+        }  
+          
+        /* Complete hashed password in hexadecimal format */  
+        return (s.toString());
+	}
 }

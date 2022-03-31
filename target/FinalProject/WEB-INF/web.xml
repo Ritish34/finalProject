@@ -3,16 +3,46 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-<!--   <display-name>Archetype Created Web Application</display-name>
+  <display-name>Archetype Created Web Application</display-name>
   <servlet>
   	<servlet-name>RegController</servlet-name>
   	<display-name>RegController</display-name>
   	<description></description>
   	<servlet-class>controller.RegController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>loginController</servlet-name>
+  	<display-name>loginController</display-name>
+  	<description></description>
+  	<servlet-class>controller.loginController</servlet-class>
+  </servlet>
+<!--   <servlet>
+  	<servlet-name>header</servlet-name>
+  	<display-name>header</display-name>
+  	<description></description>
+  	<servlet-class>util.header</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Footer</servlet-name>
+  	<display-name>Footer</display-name>
+  	<description></description>
+  	<servlet-class>util.Footer</servlet-class>
+  </servlet> -->
   <servlet-mapping>
   	<servlet-name>RegController</servlet-name>
   	<url-pattern>/RegController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>loginController</servlet-name>
+  	<url-pattern>/loginController</url-pattern>
+  </servlet-mapping>
+<!--   <servlet-mapping>
+  	<servlet-name>header</servlet-name>
+  	<url-pattern>/header</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Footer</servlet-name>
+  	<url-pattern>/Footer</url-pattern>
   </servlet-mapping> -->
 <!--   <servlet>
   	<servlet-name>CheckEmailController</servlet-name>

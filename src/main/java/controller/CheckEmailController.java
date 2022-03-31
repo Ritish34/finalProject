@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import services.checkEmail;
+import services.UserService;
 
 /**
  * Servlet implementation class CheckEmailController
@@ -43,7 +43,9 @@ public class CheckEmailController extends HttpServlet {
 		logger.debug("Inside Controller");
 		
 		try {
-			if(checkEmail.checkDup(email)) {
+			UserService ser = new UserService();
+			
+			if(ser.checkDupEmail(email)) {
 				out.write("Duplicate");
 			}
 			else {

@@ -89,4 +89,22 @@ public class DBOperations {
 		else
 			return false;
 	}
+	
+	public static String getRole(String email,String pass) throws ClassNotFoundException, SQLException {
+		String query = "select * from user where email=? and password = ?";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
+		
+		ps.setString(1, email);
+		ps.setString(2, pass);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			return (rs.getString("role")+"@"+rs.getString("firstname"));
+		}
+		else
+		{
+			return null;
+		}
+	}
 }
