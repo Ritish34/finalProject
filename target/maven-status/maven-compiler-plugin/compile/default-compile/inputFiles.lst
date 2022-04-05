@@ -1,14 +1,10 @@
-D:\eclipse-workspace\FinalProject\src\main\java\services\checkEmail.java
 D:\eclipse-workspace\FinalProject\src\main\java\services\UserService.java
 D:\eclipse-workspace\FinalProject\src\main\java\controller\RegController.java
 D:\eclipse-workspace\FinalProject\src\main\java\util\Encryption.java
 D:\eclipse-workspace\FinalProject\src\main\java\controller\CheckEmailController.java
 D:\eclipse-workspace\FinalProject\src\main\java\model\Address.java
+D:\eclipse-workspace\FinalProject\src\main\java\dao\UserDBimp.java
 D:\eclipse-workspace\FinalProject\src\main\java\controller\loginController.java
-D:\eclipse-workspace\FinalProject\src\main\java\services\CheckLoginUser.java
-D:\eclipse-workspace\FinalProject\src\main\java\services\regdata.java
 D:\eclipse-workspace\FinalProject\src\main\java\model\User.java
 D:\eclipse-workspace\FinalProject\src\main\java\dao\UserDB.java
-D:\eclipse-workspace\FinalProject\src\main\java\dao\DBOperations.java
-D:\eclipse-workspace\FinalProject\src\main\java\dao\UserDBimp.java
 D:\eclipse-workspace\FinalProject\src\main\java\dao\DBConnectivity.java

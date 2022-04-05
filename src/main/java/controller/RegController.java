@@ -10,10 +10,12 @@ import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,23 +23,23 @@ import org.apache.log4j.Logger;
 import model.Address;
 import model.User;
 import services.UserService;
+import services.UserServiceImp;
 
 
-//@WebServlet("/RegController")
+@WebServlet("/RegController")
+@MultipartConfig(maxFileSize = 16177215)
 public class RegController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LogManager.getLogger(RegController.class);   
 	
     public RegController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		//Make PrintWriter Object to Write data
 		PrintWriter out = response.getWriter();
@@ -61,10 +63,9 @@ public class RegController extends HttpServlet {
 			favlangs+=arr[i]+" ";
 		}
 		
-//		//take image input
-//		String file=request.getParameter("file");
 //		Part filePart
 //        = request.getPart("file");
+		Part filePart = request.getPart("image");
 		
 		//take addresses
 		String[] address = request.getParameterValues("address[]");
@@ -100,10 +101,10 @@ public class RegController extends HttpServlet {
 		try {
 			logger.info("Inside Registration Controller");
 			
-			UserService service = new UserService();
+			UserService service = new UserServiceImp();
 			
 			//call dao method for storing data
-			boolean flag = service.saveUser(user,list);//,file
+			boolean flag = service.saveUser(user,list,filePart);//,file
 			if(flag) {
 				
 				logger.info("Registration Sucessfull");

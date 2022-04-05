@@ -1,18 +1,31 @@
 package model;
 
-import java.sql.Date;
+import java.sql.Blob;
 
 public class User {
-	int id;
-	String fname;
-	String lname;
-	String email;
-	String phone;
-	String gender;
-	String dob;
-	String lang;
-	String password;
-	String role;
+	private int id;
+	private String fname;
+	private String lname;
+	private String email;
+	private String phone;
+	private String gender;
+	private String dob;
+	private String lang;
+	private String password;
+	private String role;
+	private Blob image;
+	/**
+	 * @return the image
+	 */
+	public Blob getImage() {
+		return image;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(Blob image) {
+		this.image = image;
+	}
 	/**
 	 * @return the id
 	 */

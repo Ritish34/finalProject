@@ -4,7 +4,37 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+<!--   <servlet>
+  	<servlet-name>ShowAllUser</servlet-name>
+  	<display-name>ShowAllUser</display-name>
+  	<description></description>
+  	<servlet-class>servlet.ShowAllUser</servlet-class>
+  </servlet>
   <servlet>
+  	<servlet-name>DeleteUser</servlet-name>
+  	<display-name>DeleteUser</display-name>
+  	<description></description>
+  	<servlet-class>controller.DeleteUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ShowAllUser</servlet-name>
+  	<url-pattern>/ShowAllUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteUser</servlet-name>
+  	<url-pattern>/DeleteUser</url-pattern>
+  </servlet-mapping> -->
+<!--   <filter>
+  	<filter-name>ValidationFilter</filter-name>
+  	<display-name>ValidationFilter</display-name>
+  	<description></description>
+  	<filter-class>util.ValidationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>ValidationFilter</filter-name>
+  	<url-pattern>/ValidationFilter</url-pattern>
+  </filter-mapping> -->
+<!--   <servlet>
   	<servlet-name>RegController</servlet-name>
   	<display-name>RegController</display-name>
   	<description></description>
@@ -15,7 +45,7 @@
   	<display-name>loginController</display-name>
   	<description></description>
   	<servlet-class>controller.loginController</servlet-class>
-  </servlet>
+  </servlet> -->
 <!--   <servlet>
   	<servlet-name>header</servlet-name>
   	<display-name>header</display-name>
@@ -28,14 +58,14 @@
   	<description></description>
   	<servlet-class>util.Footer</servlet-class>
   </servlet> -->
-  <servlet-mapping>
+<!--   <servlet-mapping>
   	<servlet-name>RegController</servlet-name>
   	<url-pattern>/RegController</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>loginController</servlet-name>
   	<url-pattern>/loginController</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 <!--   <servlet-mapping>
   	<servlet-name>header</servlet-name>
   	<url-pattern>/header</url-pattern>

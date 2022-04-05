@@ -1,12 +1,12 @@
 package model;
 
 public class Address {
-	int userid;
-	String address;
-	int zip;
-	String city;
-	String state;
-	String contry;
+	private int userid;
+	private String address;
+	private int zip;
+	private String city;
+	private String state;
+	private String contry;
 	/**
 	 * @return the userid
 	 */

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -16,13 +17,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import model.User;
-import services.CheckLoginUser;
 import services.UserService;
+import services.UserServiceImp;
 
 @WebServlet("/login")
 public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static Logger logger = LogManager.getLogger(RegController.class);
+	private final static Logger logger = LogManager.getLogger(loginController.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,8 +47,10 @@ public class loginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 		
+		logger.debug("inside loginController");
+		
 		try {
-			UserService service = new UserService();
+			UserService service = new UserServiceImp();
 			
 			User user = service.getUserRole(email, pass);
 			
@@ -78,7 +81,7 @@ public class loginController extends HttpServlet {
 				rd.include(request, response);
 			}
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			out.print(e);
 		}

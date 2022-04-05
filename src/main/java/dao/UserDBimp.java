@@ -1,9 +1,12 @@
 package dao;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
@@ -14,7 +17,7 @@ import model.User;
 
 public class UserDBimp implements UserDB {
 
-	private final static Logger logger = LogManager.getLogger(DBOperations.class);
+	private final static Logger logger = LogManager.getLogger(UserDB.class);
 	
 	@Override
 	public boolean checkEmail(String query) throws ClassNotFoundException, SQLException {
@@ -43,9 +46,9 @@ public class UserDBimp implements UserDB {
 	}
 
 	@Override
-	public int saveUserData(User obj) throws ClassNotFoundException, SQLException, FileNotFoundException {
+	public int saveUserData(User obj,InputStream image) throws ClassNotFoundException, SQLException, FileNotFoundException {
 		// TODO Auto-generated method stub
-		String query = "insert into user(firstname,lastname,email,phone,gender,dob,lang,password,role) values(?,?,?,?,?,?,?,?,?)";
+		String query = "insert into user(firstname,lastname,email,phone,gender,dob,lang,password,role,picture) values(?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
 		ps.setString(1, obj.getFname());
 		ps.setString(2, obj.getLname());
@@ -56,6 +59,7 @@ public class UserDBimp implements UserDB {
 		ps.setString(7, obj.getLang());
 		ps.setString(8, obj.getPassword());
 		ps.setString(9, obj.getRole());
+		ps.setBlob(10, image);
 
 		int num = ps.executeUpdate();
 		return num;
@@ -107,4 +111,43 @@ public class UserDBimp implements UserDB {
 		return user;
 	}
 
+	@Override
+	public List<User> getAllUser() throws SQLException, ClassNotFoundException {
+		List<User> list = new ArrayList<User>();
+
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+				String sql = "SELECT * FROM user where Role=?";
+				ps = DBConnectivity.getConnection().prepareStatement(sql);
+				ps.setString(1, "User");
+				ps.executeQuery();
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					User user = new User();
+					
+					user.setId(rs.getInt(1));
+					user.setFname(rs.getString(2));
+					user.setLname(rs.getString(3));
+					user.setEmail(rs.getString(4));
+					user.setPhone(rs.getString(5));
+					user.setGender(rs.getString(6));
+					user.setDob(rs.getString(7));
+					user.setLang(rs.getString(8));
+					user.setRole(rs.getString("role"));
+					list.add(user);
+				}
+
+		return list;
+	}
+	
+	public int deleteUserById(int UserId) throws SQLException, ClassNotFoundException {
+		PreparedStatement ps = null;
+				String sql = "DELETE FROM user WHERE UserId=?";
+				ps = DBConnectivity.getConnection().prepareStatement(sql);
+				ps.setInt(1, UserId);
+				int num = ps.executeUpdate();
+				System.out.println("done");
+				return num;
+	}
 }
