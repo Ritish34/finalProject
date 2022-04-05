@@ -75,36 +75,37 @@ $(function() {
 		}
 	});
 	
-	/*$("form").submit(function(event)
-	{
-		const formdata = new FormData("#form");
-		console.log($("#form").serialize());
-		var form = document.getElementById("form");
-		console.log(new FormData(form));
-		$.ajax({
-			method:"POST",
-			url:"RegController",
-			data: {first_name : "ritish"},//$("#form").serialize()
-			enctype : "multiform/form-data",
-			
-			success:function(data){
-				console.log(data);
-				if(data === "Success"){
-					$('#result').html("Registration Sucessfull").css("color","green");
-				}
-				else
-				{
-					$('#result').html("Registration Fails!!").css("color","red");
-				}
-			},
-			processData:false,
-			contentType:false,
-			error: function(){
-                alert("error");
-            } 
-		});
-		event.preventDefault();
-	});*/
+	$("input#confirm").change(function(){
+		let con = $(this).val().trim();
+		let pass = $("#pass").val().trim();
+		console.log(con+"   "+pass);
+		if(con === pass){
+			$("span#result").html("Password matched").css("color","green");
+			console.log("matched");
+		}
+		else{
+			$("span#result").html("Password is not match with confirm password!!").css("color","red");
+			$(this).focus();
+		}
+	});
+	
+	$("input#pass").change(function(){
+		let pass = $(this).val().trim();
+		let con = $("#confirm").val().trim();
+		console.log(con+"   "+pass);
+		if(con != null){
+			if(con === pass){
+			$("span#result").html("Password matched").css("color","green");
+			console.log("matched");
+		}
+		else{
+			$("span#result").html("Password is not match with confirm password!!").css("color","red");
+			$(this).focus();
+		}
+		}
+		
+	});	
+	
 });
 
 

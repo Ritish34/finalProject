@@ -23,5 +23,7 @@ public interface UserService {
 	public List<User> getAllUser() throws ClassNotFoundException, SQLException;
 	
 	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException ;
+
+	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
 	
 }

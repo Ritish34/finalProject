@@ -54,32 +54,31 @@ public class loginController extends HttpServlet {
 			
 			User user = service.getUserRole(email, pass);
 			
-//			String str = CheckLoginUser.getUser(email, pass);
-//			logger.info(str);
-			
-			/*
-			 * String[] output = str.split("@");
-			 * 
-			 * String role = output[0]; String username = output[1];
-			 */
-			
-			if(user.getRole().equals("Admin")) {
-				HttpSession session = request.getSession();
-				session.setAttribute("username", user.getFname());
-				//send redirect to admin home page
-				response.sendRedirect("Admin-Dashboard.jsp");
-			}
-			else if(user.getRole().equals("User")) {
-				HttpSession session = request.getSession();
-				session.setAttribute("username", user.getFname());
-				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Login Success</h4></center>");
-				//send redirect to user home page
-			}
-			else {
+			String role = user.getRole();
+				
+			if(role == null) {
 				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Login Fails</h4></center>");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.include(request, response);
 			}
+			else {
+				if(role.equals("Admin")) {
+					HttpSession session = request.getSession();
+					session.setAttribute("username", user.getFname());
+					session.setAttribute("userid", user.getId());
+					//send redirect to admin home page
+					response.sendRedirect("Admin-Dashboard.jsp");
+				}
+				else{
+					HttpSession session = request.getSession();
+					session.setAttribute("username", user.getFname());
+					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Login Success</h4></center>");
+					
+					//send redirect to user home page
+				}
+			}
+			
+			
 			
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

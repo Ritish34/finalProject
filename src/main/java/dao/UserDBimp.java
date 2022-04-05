@@ -1,18 +1,21 @@
 package dao;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import model.Address;
 import model.User;
 
 public class UserDBimp implements UserDB {
@@ -66,25 +69,6 @@ public class UserDBimp implements UserDB {
 	}
 
 	@Override
-	public boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		String query = "insert into address values(NULL,?,?,?,?,?,?)";
-		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
-		ps.setInt(1, obj.getUserid());
-		ps.setString(2, obj.getAddress());
-		ps.setInt(3, obj.getZip());
-		ps.setString(4, obj.getCity());
-		ps.setString(5, obj.getState());
-		ps.setString(6, obj.getContry());
-
-		int num = ps.executeUpdate();
-		if (num != 0)
-			return true;
-		else
-			return false;
-	}
-
-	@Override
 	public User getRole(String email, String pass) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		String query = "select * from user where email=? and password = ?";
@@ -110,7 +94,57 @@ public class UserDBimp implements UserDB {
 		
 		return user;
 	}
+	
+	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException{
+		List<User> list = new ArrayList<User>();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+			String sql = "SELECT * FROM user where userid=40";
+			ps = DBConnectivity.getConnection().prepareStatement(sql);
+//			ps.setInt(1, userid);
+			ps.executeQuery();
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				
+				Blob blob = rs.getBlob("picture");
 
+				InputStream inputStream = blob.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					outputStream.write(buffer, 0, bytesRead);
+				}
+
+				byte[] imageBytes = outputStream.toByteArray();
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+				inputStream.close();
+				outputStream.close();
+				
+				User user = new User();
+				user.setId(rs.getInt(1));
+				user.setFname(rs.getString(2));
+				user.setLname(rs.getString(3));
+				user.setEmail(rs.getString(4));
+				user.setPhone(rs.getString(5));
+				user.setGender(rs.getString(6));
+				user.setDob(rs.getString(7));
+				user.setLang(rs.getString(8));
+//				user.setImage(rs.getBlob(10));
+				user.setBase64Image(base64Image);
+				user.setRole(rs.getString("role"));//role is field name
+				list.add(user);
+			}
+
+	return list;
+
+	}
+	
 	@Override
 	public List<User> getAllUser() throws SQLException, ClassNotFoundException {
 		List<User> list = new ArrayList<User>();
@@ -134,7 +168,7 @@ public class UserDBimp implements UserDB {
 					user.setGender(rs.getString(6));
 					user.setDob(rs.getString(7));
 					user.setLang(rs.getString(8));
-					user.setRole(rs.getString("role"));
+					user.setRole(rs.getString("role"));//role is field name
 					list.add(user);
 				}
 

@@ -71,10 +71,12 @@ public class UserServiceImp implements UserService {
 			logger.debug(userid);
 
 			boolean flag = false;
+			
+			AddressService ser = new AddressServiceImp();
 
 			for (Address a : list) {
 				a.setUserid(userid);
-				flag = dao.saveAddress(a);
+				flag = ser.saveAddress(a);
 				if (!flag) {
 					break;
 				}
@@ -95,6 +97,14 @@ public class UserServiceImp implements UserService {
 		UserDB dao = new UserDBimp();
 		
 		return dao.getAllUser();
+	}
+	
+	@Override
+	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		UserDB dao = new UserDBimp();
+		
+		return dao.getUser(userid);
 	}
 	
 	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException {

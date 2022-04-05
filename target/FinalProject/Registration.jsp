@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +40,7 @@
                     <h4 id="result"></h4>
                 </div>
                 <div class="card-body">
-                    <form id="form" name="reg_form" action="RegController" method="POST" ><!-- enctype ="multiform/form-data" -->
+                    <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data"><!-- enctype ="multiform/form-data" -->
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -45,13 +48,13 @@
                                     <div class="col-2">
                                         <div class="input-group-desc">
                                             <label class="label--desc">First Name</label>
-                                            <input class="input--style-5" type="text" name="first_name" placeholder="Firstname">
+                                            <input class="input--style-5" type="text" name="first_name" value='<c:out value="${param.first_name }"></c:out>' placeholder="Firstname">
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc"> 
                                             <label class="label--desc">Last Name</label>                                          
-                                            <input class="input--style-5" type="text" name="last_name" placeholder="Lastname">
+                                            <input class="input--style-5" type="text" name="last_name" value='<c:out value="${param.last_name }"></c:out>' placeholder="Lastname">
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +65,7 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email"
-										id="email" onchange='checkEmail()'>
+										id="email" onchange='checkEmail()' value='<c:out value="${param.email }"></c:out>'>
 										<div id = "emailStatus"></div>
                                 </div>
                             </div>
@@ -71,7 +74,16 @@
                             <div class="name">Password</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="password" name="password" >
+                                    <input class="input--style-5" type="password" name="password" id="pass" value='<c:out value="${param.password }"></c:out>'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Confirm Password</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" name="conpass" value='<c:out value="${param.password }"></c:out>' id="confirm" required>
+                                    <span id="result"> </span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +93,7 @@
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-4" type="date" name="date" >
+                                            <input class="input--style-4" type="date" name="date" value='<c:out value="${param.date }"></c:out>'>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +106,7 @@
                                     <div class="col-9">
                                         <div class="input-group-desc">
                                             <label class="label--desc">Phone Number</label>
-                                            <input class="input--style-5" type="text" name="phone" >
+                                            <input class="input--style-5" type="text" name="phone" value='<c:out value="${param.phone }"></c:out>'>
                                         </div>
                                     </div>
                                 </div>
@@ -130,16 +142,16 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- <div class="form-row">
+                        <div class="form-row">
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
-                                <input id="new_image" type = "file"  name = "file" accept=".jpg, .jpeg, .png " required/>
+                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " /><!-- REQUIRED -->
                             </div>
                         </div>
                         <div >
                             <img id="show_image" width="100" height="100">
-                        </div> -->
+                        </div>
                         <div data-duplicate="demo">
                         <fieldset>
                             <legend>Address</legend>

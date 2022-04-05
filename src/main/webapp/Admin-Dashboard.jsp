@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -36,8 +36,7 @@ main {
 		<%@ include file="Header.jsp"%>
 	</header>
 
-	<h3 class="capitalize">Hello <%=session.getAttribute("username").toString()%> </h3>
-	<hr>
+	<h3 class="capitalize">Hello <c:out value="${sessionScope.username}"></c:out> </h3>
 	<main>
 		<div class="container">
 			<div class="row">
@@ -64,7 +63,7 @@ main {
 				</div>
 				<div class="col-md-12">
 					<button>
-						<a href="Registration.jsp">Add New User</a>
+						<a href="Registration.jsp"> Add New User</a>
 					</button>
 				</div>
 			</div>

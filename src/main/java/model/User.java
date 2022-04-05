@@ -14,6 +14,19 @@ public class User {
 	private String password;
 	private String role;
 	private Blob image;
+	private String base64Image;
+	/**
+	 * @return the base64Image
+	 */
+	public String getBase64Image() {
+		return base64Image;
+	}
+	/**
+	 * @param base64Image the base64Image to set
+	 */
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
+	}
 	/**
 	 * @return the image
 	 */
