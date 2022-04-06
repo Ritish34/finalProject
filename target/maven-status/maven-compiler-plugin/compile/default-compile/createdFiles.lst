@@ -8,6 +8,7 @@ controller\GetOneUserData.class
 controller\ShowAllUser.class
 dao\UserDBimp.class
 model\Address.class
+controller\GetAddressData.class
 controller\DeleteUser.class
 controller\loginController.class
 util\ValidationFilter.class

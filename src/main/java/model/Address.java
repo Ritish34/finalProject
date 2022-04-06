@@ -1,12 +1,27 @@
 package model;
 
 public class Address {
+	private int addressid;
 	private int userid;
 	private String address;
 	private int zip;
 	private String city;
 	private String state;
 	private String contry;
+	
+	
+	/**
+	 * @return the addressid
+	 */
+	public int getAddressid() {
+		return addressid;
+	}
+	/**
+	 * @param addressid the addressid to set
+	 */
+	public void setAddressid(int addressid) {
+		this.addressid = addressid;
+	}
 	/**
 	 * @return the userid
 	 */

@@ -24,7 +24,6 @@
 	</header>
 	<main>
 		<div class="page-content page-container" id="page-content">
-			<h3 class="capitalize">Hello <c:out value="${sessionScope.username}"></c:out> </h3>
 			<div class="padding">
 				<div class="row container d-flex justify-content-center">
 					<div class="col-md-12 col-xl-6">
@@ -73,6 +72,9 @@
 											<div class="col-sm-6 col-sm-6">
 												<p class="m-b-10 f-w-600">Language</p>
 												<h6 class="text-muted f-w-400" id="lang"></h6>
+											</div>
+											<div class="col-sm-12">
+												<button><a href="Registration.jsp">Edit Profile</a></button>
 											</div>
 										</div>
 									</div>

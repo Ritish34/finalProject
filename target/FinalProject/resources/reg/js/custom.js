@@ -106,8 +106,42 @@ $(function() {
 		
 	});	
 	
-});
+	//call ajax for edit Profile
+	debugger
+		$.ajax({
+				type: "post",
+				url: "GetOneUserData",
+				datatype: "json",
+				success: function(r) {		
+					console.log(r);
+					console.log(r.data[0].fname);
+					$("#fname").val(r.data[0].fname);
+					$("#lname").val(r.data[0].lname);
+					$("#email").val(r.data[0].email);
+					$("#phone").val(r.data[0].phone);
+					$("#dob").val(r.data[0].dob);
+//					$("#lang").html(r.data[0].lang);
 
+					let lang = r.data[0].lang;
+					let arr = string.split(' ');
+					$('.form-check-input[type="checkbox"]').map(function () { 
+                		arr.includes($(this).val()) ? $(this).prop('checked', true) : $(this).prop('checked', false) 
+            		});
+            		
+            		let gen = r.data[0].gender;
+					if(gen == "male"){
+						$("#male").prop('checked',true);
+					}
+					else{
+						$("#female").prop('checked',false);
+					}
+					$("img#show_image").attr("src","data:image/jpg;base64,"+r.data[0].base64Image);
+				},
+				error: function(textStatus) {
+					alert("not call")
+				},
+		});  
+});
 
 //create function to check entered eamail is already present into database or not 
 function checkEmail() {
@@ -165,32 +199,3 @@ $("#new_image").change(function(){
       clearFile();
     } 
 });
-
-/*$(document).ready(function(){
-
-	//stop form to submit
-	$("#form").submit(function(e){
-		e.preventDefault();
-	});
-
-	//check for button click event
-	$("#submit").click(function(e){
-          
-		//get the form data and then serialize that
-		dataString = $("#form").serialize();
-		$.ajax({
-            url: "RegController",
-            type: "POST",
-            data:  dataString,
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function(responseText){
-                alert(responseText);
-            },
-            error: function(){
-                alert("error");
-            }           
-        });
-	});	
-})*/

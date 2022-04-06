@@ -106,9 +106,88 @@ $(function() {
 		
 	});	
 	
+	//call ajax for edit Profile
+		$.ajax({
+				type: "post",
+				url: "GetOneUserData",
+				datatype: "json",
+				success: function(r) {		
+					console.log(r);
+					console.log(r.data[0].fname);
+					$("#fname").val(r.data[0].fname);
+					$("#lname").val(r.data[0].lname);
+					$("#email").val(r.data[0].email);
+					$("#email").prop('readonly',true);
+					$("#phone").val(r.data[0].phone);
+					$("#phone").prop('readonly',true);
+					$("#dob").val(r.data[0].dob);
+//					$("#lang").html(r.data[0].lang);
+
+					let lang = r.data[0].lang;
+					 debugger
+//                		arr.includes($(this).val()) ? $(this).prop('checked', '') : $(this).prop('checked', 'checked')
+					if(lang.includes($("#chk1").val() )){
+						$("#chk1").prop('checked', 'checked')
+					}
+					if(lang.includes($("#chk2").val() )){
+						$("#chk2").prop('checked', 'checked')
+					} 
+					if(lang.includes($("#chk3").val() )){
+						$("#chk3").prop('checked', 'checked')
+					}
+            		
+            		let gen = r.data[0].gender;
+					if(gen == "male"){
+						$("#male").prop('checked','checked');
+					}
+					else{
+						$("#female").prop('checked','checked');
+					}
+					$("img#show_image").attr("src","data:image/jpg;base64,"+r.data[0].base64Image);
+				},
+				error: function(textStatus) {
+					alert("not call")
+				},
+		}); 
+		
+		//call ajax for Address filed
+		$.ajax({
+				type: "post",
+				url: "GetAddressData",
+				datatype: "json",
+				success: function(r) {		
+					console.log(r);
+				$.each(r, function(key, value) {
+    				$.each(value, function(key, value) {
+						$("#form fieldset:last #addressid").val(value.addressid);
+						$("#form fieldset:last #address").val(value.address);
+						$("#form fieldset:last #zip").val(value.zip);
+						$("#form fieldset:last #city").val(value.city);
+						$("#form fieldset:last #state").val(value.state);
+						$("#form fieldset:last #country").val(value.contry);
+						
+						if(key+1 < Object.keys(r.data).length){
+							$('#add').click();	
+						}
+					});
+				});
+	
+				},
+				error: function(textStatus) {
+					alert("not call")
+				},
+		}); 
+		 
 });
 
-
+function removeList(){
+	var arr = new Array();
+			/*let val = $(this).siblings('input').val();*/
+			 var value = $(this).siblings('input').val();
+			arr.push(value);
+			$('#remove').click();
+			console.log(arr);
+}
 //create function to check entered eamail is already present into database or not 
 function checkEmail() {
 		//get email value
@@ -166,31 +245,3 @@ $("#new_image").change(function(){
     } 
 });
 
-/*$(document).ready(function(){
-
-	//stop form to submit
-	$("#form").submit(function(e){
-		e.preventDefault();
-	});
-
-	//check for button click event
-	$("#submit").click(function(e){
-          
-		//get the form data and then serialize that
-		dataString = $("#form").serialize();
-		$.ajax({
-            url: "RegController",
-            type: "POST",
-            data:  dataString,
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function(responseText){
-                alert(responseText);
-            },
-            error: function(){
-                alert("error");
-            }           
-        });
-	});	
-})*/

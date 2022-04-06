@@ -73,6 +73,9 @@
 												<p class="m-b-10 f-w-600">Language</p>
 												<h6 class="text-muted f-w-400" id="lang"></h6>
 											</div>
+											<div class="col-sm-12">
+												<button><a href="Registration.jsp">Edit Profile</a></button>
+											</div>
 										</div>
 									</div>
 								</div>

@@ -62,19 +62,15 @@ public class loginController extends HttpServlet {
 				rd.include(request, response);
 			}
 			else {
+				HttpSession session = request.getSession();
+				session.setAttribute("username", user.getFname());
+				session.setAttribute("userid", user.getId());
+				session.setAttribute("role", user.getRole());
 				if(role.equals("Admin")) {
-					HttpSession session = request.getSession();
-					session.setAttribute("username", user.getFname());
-					session.setAttribute("userid", user.getId());
-					session.setAttribute("role", user.getRole());
 					//send redirect to admin home page
 					response.sendRedirect("Admin-Dashboard.jsp");
 				}
 				else{
-					HttpSession session = request.getSession();
-					session.setAttribute("username", user.getFname());
-					session.setAttribute("userid", user.getId());
-					session.setAttribute("role", user.getRole());
 					//send redirect to user home page
 					response.sendRedirect("User-Dashboard.jsp");
 				}

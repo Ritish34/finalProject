@@ -36,8 +36,14 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
+                <c:if test="${sessionScope.username != null}">
+                	<h2 class="title"> Edit Profile </h2>
+                    <h4 id="result"></h4>
+                </c:if>
+                <c:if test="${sessionScope.username == null }">
                     <h2 class="title"> Registration Form</h2>
                     <h4 id="result"></h4>
+                </c:if>    
                 </div>
                 <div class="card-body">
                     <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data"><!-- enctype ="multiform/form-data" -->
@@ -48,13 +54,13 @@
                                     <div class="col-2">
                                         <div class="input-group-desc">
                                             <label class="label--desc">First Name</label>
-                                            <input class="input--style-5" type="text" name="first_name" value='<c:out value="${param.first_name }"></c:out>' placeholder="Firstname">
+                                            <input class="input--style-5" type="text" name="first_name" id="fname" value='<c:out value="${param.first_name }"></c:out>' placeholder="Firstname">
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc"> 
                                             <label class="label--desc">Last Name</label>                                          
-                                            <input class="input--style-5" type="text" name="last_name" value='<c:out value="${param.last_name }"></c:out>' placeholder="Lastname">
+                                            <input class="input--style-5" type="text" name="last_name" id="lname" value='<c:out value="${param.last_name }"></c:out>' placeholder="Lastname">
                                         </div>
                                     </div>
                                 </div>
@@ -65,35 +71,37 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email"
-										id="email" onchange='checkEmail()' value='<c:out value="${param.email }"></c:out>'>
+										id="email" onchange='checkEmail()' id="email" value='<c:out value="${param.email }"></c:out>'>
 										<div id = "emailStatus"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="name">Password</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="password" name="password" id="pass" value='<c:out value="${param.password }"></c:out>'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Confirm Password</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="password" name="conpass" value='<c:out value="${param.password }"></c:out>' id="confirm" required>
-                                    <span id="result"> </span>
-                                </div>
-                            </div>
-                        </div>
+                        <c:if test="${sessionScope.username == null }">
+	                        <div class="form-row">
+	                            <div class="name">Password</div>
+	                            <div class="value">
+	                                <div class="input-group">
+	                                    <input class="input--style-5" type="password" name="password" id="pass" value='<c:out value="${param.password }"></c:out>'>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-row">
+	                            <div class="name">Confirm Password</div>
+	                            <div class="value">
+	                                <div class="input-group">
+	                                    <input class="input--style-5" type="password" name="conpass" value='<c:out value="${param.password }"></c:out>' id="confirm" required>
+	                                    <span id="result"> </span>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </c:if>
                         <div class="form-row m-b-55">
                             <div class="name">Date Of Birth</div>
                             <div class="value">
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-4" type="date" name="date" value='<c:out value="${param.date }"></c:out>'>
+                                            <input class="input--style-4" type="date" name="date" id="dob" value='<c:out value="${param.date }"></c:out>'>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +114,7 @@
                                     <div class="col-9">
                                         <div class="input-group-desc">
                                             <label class="label--desc">Phone Number</label>
-                                            <input class="input--style-5" type="text" name="phone" value='<c:out value="${param.phone }"></c:out>'>
+                                            <input class="input--style-5" type="text" name="phone" id="phone" value='<c:out value="${param.phone }"></c:out>'>
                                         </div>
                                     </div>
                                 </div>
@@ -116,11 +124,11 @@
                             <div class="name">Gender</div>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">Male
-                                    <input type="radio" checked="checked" name="gender" value="male">
+                                    <input type="radio" checked="checked" name="gender" id="male" value="male">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">Female
-                                    <input type="radio" name="gender" value="female">
+                                    <input type="radio" name="gender" value="female" id="female">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -129,15 +137,15 @@
                             <div class="name">Language</div>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-45">
-                                    <input type="checkbox"  name="checkbox" value="Java">Java
+                                    <input type="checkbox" id="chk1" class="form-check-input" name="checkbox" value="Java">Java
                                     <span class="check"></span>
                                 </label>
                                 <label class="radio-container m-r-45">
-                                    <input type="checkbox"  name="checkbox" value="Python">Python
+                                    <input type="checkbox" id="chk2" class="form-check-input" name="checkbox" value="Python">Python
                                     <span class="check"></span>
                                 </label>
                                 <label class="radio-container ">
-                                    <input type="checkbox"  name="checkbox" value="C++">C++
+                                    <input type="checkbox" id="chk3" class="form-check-input" name="checkbox" value="C++">C++
                                     <span class="check"></span>
                                 </label>
                             </div>

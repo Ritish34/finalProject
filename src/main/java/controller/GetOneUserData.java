@@ -55,17 +55,12 @@ public class GetOneUserData extends HttpServlet {
 		
 		logger.info(userid);
 		
-//		int userid = Integer.parseInt(request.getParameter("UserId")) ;
 		
 		UserService impl = new UserServiceImp();
 		
 		List<User> list= null;
 		try {
 			list = impl.getUser(userid);
-			
-//			request.setAttribute("user", user);
-//			RequestDispatcher rd = request.getRequestDispatcher("Profile.jsp");
-//			rd.forward(request, response);
 			
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 
