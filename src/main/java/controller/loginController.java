@@ -20,7 +20,7 @@ import model.User;
 import services.UserService;
 import services.UserServiceImp;
 
-@WebServlet("/login")
+@WebServlet("/loginController")
 public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LogManager.getLogger(loginController.class);
@@ -66,15 +66,17 @@ public class loginController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("username", user.getFname());
 					session.setAttribute("userid", user.getId());
+					session.setAttribute("role", user.getRole());
 					//send redirect to admin home page
 					response.sendRedirect("Admin-Dashboard.jsp");
 				}
 				else{
 					HttpSession session = request.getSession();
 					session.setAttribute("username", user.getFname());
-					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Login Success</h4></center>");
-					
+					session.setAttribute("userid", user.getId());
+					session.setAttribute("role", user.getRole());
 					//send redirect to user home page
+					response.sendRedirect("User-Dashboard.jsp");
 				}
 			}
 			

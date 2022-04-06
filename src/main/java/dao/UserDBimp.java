@@ -101,9 +101,9 @@ public class UserDBimp implements UserDB {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-			String sql = "SELECT * FROM user where userid=40";
+			String sql = "SELECT * FROM user where userid=?";
 			ps = DBConnectivity.getConnection().prepareStatement(sql);
-//			ps.setInt(1, userid);
+			ps.setInt(1, userid);
 			ps.executeQuery();
 			rs = ps.executeQuery();
 			

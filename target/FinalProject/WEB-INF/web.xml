@@ -4,7 +4,7 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
+ <!--  <servlet>
   	<servlet-name>GetOneUserData</servlet-name>
   	<display-name>GetOneUserData</display-name>
   	<description></description>
@@ -13,7 +13,7 @@
   <servlet-mapping>
   	<servlet-name>GetOneUserData</servlet-name>
   	<url-pattern>/GetOneUserData</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 <!--   <servlet>
   	<servlet-name>ShowAllUser</servlet-name>
   	<display-name>ShowAllUser</display-name>

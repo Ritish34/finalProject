@@ -46,13 +46,16 @@ public class GetOneUserData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.setContentType("text/html");
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
 		
 		int userid = (Integer) session.getAttribute("userid");
+		
+		logger.info(userid);
+		
+//		int userid = Integer.parseInt(request.getParameter("UserId")) ;
 		
 		UserService impl = new UserServiceImp();
 		
