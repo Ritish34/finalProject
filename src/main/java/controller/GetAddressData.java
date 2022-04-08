@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import services.UserServiceImp;
 /**
  * Servlet implementation class GetAddressData
  */
+@WebServlet("/GetAddressData")
 public class GetAddressData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -59,6 +61,8 @@ public class GetAddressData extends HttpServlet {
 		List<Address> list= null;
 		try {
 			list = impl.getUserAddress(userid);
+			
+			session.setAttribute("addresslist", list);
 			
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 

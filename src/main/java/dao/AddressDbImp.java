@@ -51,4 +51,35 @@ public class AddressDbImp implements AddressDB {
 		
 		return list;
 	}
+	
+	@Override
+	public boolean deleteAddress(int id) throws ClassNotFoundException, SQLException {
+		String query = "delete from address where id=?";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
+		ps.setInt(1, id);
+		
+		int num = ps.executeUpdate();
+		if (num != 0)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean updateAddress(Address obj) throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE address SET address=?,zipcode=?,city=?,state=?,contry=?  WHERE (id = ?)";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(sql);
+		ps.setString(1, obj.getAddress());
+		ps.setInt(2, obj.getZip());
+		ps.setString(3, obj.getCity());
+		ps.setString(4, obj.getState());
+		ps.setString(5, obj.getContry());
+		ps.setInt(6, obj.getAddressid());
+		
+		int num = ps.executeUpdate();
+		if (num != 0)
+			return true;
+		else
+			return false;
+	}
 }

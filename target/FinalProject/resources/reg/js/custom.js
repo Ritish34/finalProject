@@ -107,7 +107,6 @@ $(function() {
 	});	
 	
 	//call ajax for edit Profile
-	debugger
 		$.ajax({
 				type: "post",
 				url: "GetOneUserData",
@@ -118,29 +117,127 @@ $(function() {
 					$("#fname").val(r.data[0].fname);
 					$("#lname").val(r.data[0].lname);
 					$("#email").val(r.data[0].email);
+					$("#email").prop('readonly',true);
 					$("#phone").val(r.data[0].phone);
+					$("#phone").prop('readonly',true);
 					$("#dob").val(r.data[0].dob);
 //					$("#lang").html(r.data[0].lang);
 
 					let lang = r.data[0].lang;
-					let arr = string.split(' ');
-					$('.form-check-input[type="checkbox"]').map(function () { 
-                		arr.includes($(this).val()) ? $(this).prop('checked', true) : $(this).prop('checked', false) 
-            		});
+					 debugger
+//                		arr.includes($(this).val()) ? $(this).prop('checked', '') : $(this).prop('checked', 'checked')
+					if(lang.includes($("#chk1").val() )){
+						$("#chk1").prop('checked', 'checked')
+					}
+					if(lang.includes($("#chk2").val() )){
+						$("#chk2").prop('checked', 'checked')
+					} 
+					if(lang.includes($("#chk3").val() )){
+						$("#chk3").prop('checked', 'checked')
+					}
             		
             		let gen = r.data[0].gender;
 					if(gen == "male"){
-						$("#male").prop('checked',true);
+						$("#male").prop('checked','checked');
 					}
 					else{
-						$("#female").prop('checked',false);
+						$("#female").prop('checked','checked');
 					}
 					$("img#show_image").attr("src","data:image/jpg;base64,"+r.data[0].base64Image);
 				},
 				error: function(textStatus) {
 					alert("not call")
 				},
-		});  
+		}); 
+
+let addresslist = new Array();		
+		//call ajax for Address filed
+		$.ajax({
+				type: "post",
+				url: "GetAddressData",
+				datatype: "json",
+				success: function(r) {		
+					console.log(r);
+				$.each(r, function(key, value) {
+    				$.each(value, function(key, value) {
+						$("#form fieldset:last #addressid").val(value.addressid);
+						$("#form fieldset:last #address").val(value.address);
+						$("#form fieldset:last #zip").val(value.zip);
+						$("#form fieldset:last #city").val(value.city);
+						$("#form fieldset:last #state").val(value.state);
+						$("#form fieldset:last #country").val(value.contry);
+						
+						if(key+1 < Object.keys(r.data).length){
+							$('#add').click();
+						}
+						addresslist.push(value.addressid);
+					});
+				});
+				},
+				error: function(textStatus) {
+					alert("not call")
+				},
+		}); 
+		
+		let arr = new Array();
+		
+		//on submit buttun
+		$("#update").on('click',function(e){
+			
+			$("#form").attr('action','UpdateProfile')
+			//call ajax to delete address
+			e.preventDefault();
+			if(arr.length != 0){
+				$.ajax({
+					type: "post",
+					url: "DeleteAddress",
+					data:{ Array : arr},
+					datatype: "json",
+					success: function(r) {		
+						console.log(r);
+					},
+					error: function(textStatus) {
+						console.log("not call deleteAddress")
+					},
+				});	
+			}
+			
+			$("#submit").click();
+			
+			/*var myForm = $("#form")[0];
+			var formdata = new FormData(form);
+//			var formdata = $("#form").serialize();
+			console.log(formdata);
+			$.ajax({
+	            url: "UpdateProfile",
+	            type: "POST",
+	            contentType:"multipart/form-data",
+	            data: formdata ,
+//	            contentType: false,
+//				dataType:"json",
+	            cache: false,
+	            async: true,
+	            processData:false,
+	            success: function(res){
+	                alert(res);
+	            },
+	            error: function(){
+	                console.log("not call updateprofile");
+	            }           
+        	});*/		
+		});
+		
+		$('#form').on('click', '.remove_btn', function (){
+			let remove = $(this).siblings('input#addressid').val();
+			if(remove != ""){
+				if(addresslist.length > 1){
+					addresslist.pop(remove);
+					arr.push(remove);
+				}	
+			}
+			$(this).siblings('#remove').click();
+			console.log(arr);
+		}); 
 });
 
 //create function to check entered eamail is already present into database or not 
@@ -165,10 +262,10 @@ function checkEmail() {
 		});
 }
 
-//
+/*//
 function submitData(){
 	var form = document.getElementById("form"); 
-}
+}*/
 
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -199,3 +296,4 @@ $("#new_image").change(function(){
       clearFile();
     } 
 });
+

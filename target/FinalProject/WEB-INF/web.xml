@@ -4,16 +4,36 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
+<!--   <servlet>
+  	<servlet-name>UpdateProfile</servlet-name>
+  	<display-name>UpdateProfile</display-name>
+  	<description></description>
+  	<servlet-class>controller.UpdateProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UpdateProfile</servlet-name>
+  	<url-pattern>/UpdateProfile</url-pattern> 
+  </servlet-mapping>-->
+  <!-- <servlet>
   	<servlet-name>GetAddressData</servlet-name>
   	<display-name>GetAddressData</display-name>
   	<description></description>
   	<servlet-class>controller.GetAddressData</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DeleteAddress</servlet-name>
+  	<display-name>DeleteAddress</display-name>
+  	<description></description>
+  	<servlet-class>controller.DeleteAddress</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>GetAddressData</servlet-name>
   	<url-pattern>/GetAddressData</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteAddress</servlet-name>
+  	<url-pattern>/DeleteAddress</url-pattern>
+  </servlet-mapping> -->
  <!--  <servlet>
   	<servlet-name>GetOneUserData</servlet-name>
   	<display-name>GetOneUserData</display-name>

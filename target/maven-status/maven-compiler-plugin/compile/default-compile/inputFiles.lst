@@ -8,9 +8,11 @@ D:\eclipse-workspace\FinalProject\src\main\java\controller\CheckEmailController.
 D:\eclipse-workspace\FinalProject\src\main\java\model\Address.java
 D:\eclipse-workspace\FinalProject\src\main\java\controller\ShowAllUser.java
 D:\eclipse-workspace\FinalProject\src\main\java\controller\loginController.java
+D:\eclipse-workspace\FinalProject\src\main\java\controller\UpdateProfile.java
 D:\eclipse-workspace\FinalProject\src\main\java\model\User.java
 D:\eclipse-workspace\FinalProject\src\main\java\dao\UserDB.java
 D:\eclipse-workspace\FinalProject\src\main\java\services\UserServiceImp.java
+D:\eclipse-workspace\FinalProject\src\main\java\controller\DeleteAddress.java
 D:\eclipse-workspace\FinalProject\src\main\java\services\AddressService.java
 D:\eclipse-workspace\FinalProject\src\main\java\dao\AddressDB.java
 D:\eclipse-workspace\FinalProject\src\main\java\dao\UserDBimp.java

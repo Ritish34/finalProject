@@ -175,6 +175,7 @@ public class UserDBimp implements UserDB {
 		return list;
 	}
 	
+	@Override
 	public int deleteUserById(int UserId) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = null;
 				String sql = "DELETE FROM user WHERE UserId=?";
@@ -183,5 +184,25 @@ public class UserDBimp implements UserDB {
 				int num = ps.executeUpdate();
 				System.out.println("done");
 				return num;
+	}
+	
+	@Override
+	public boolean updateUser(User user,InputStream image) throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE user SET firstname=?,lastname=?,gender=?,dob=?,lang=?,picture=? WHERE (email = ?)";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(sql);
+		ps.setString(1, user.getFname());
+		ps.setString(2, user.getLname());
+		ps.setString(3, user.getGender());
+		ps.setString(4, user.getDob());
+		ps.setString(5, user.getLang());
+		ps.setBlob(6, image);
+		ps.setString(7, user.getEmail());
+		
+		int num = ps.executeUpdate();
+		
+		if (num !=0)
+			return true;
+		else
+			return false;
 	}
 }

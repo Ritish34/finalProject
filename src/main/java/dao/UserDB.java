@@ -22,4 +22,6 @@ public interface UserDB {
 	public int deleteUserById(int UserId) throws SQLException, ClassNotFoundException;
 	
 	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
+
+	boolean updateUser(User user, InputStream image) throws ClassNotFoundException, SQLException;
 }

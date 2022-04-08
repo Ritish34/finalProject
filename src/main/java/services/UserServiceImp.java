@@ -107,9 +107,24 @@ public class UserServiceImp implements UserService {
 		return dao.getUser(userid);
 	}
 	
+	@Override
 	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException {
 		UserDB dao = new UserDBimp();
 		
 		return dao.deleteUserById(UserId);
+	}
+	
+	@Override
+	public int updateUser(User user, Part filePart) throws IOException, ClassNotFoundException, SQLException {
+		InputStream inputStream= filePart.getInputStream();
+		
+		UserDB dao = new UserDBimp();
+		
+		if(dao.updateUser(user, inputStream)) {
+			return dao.getUserid(user.getEmail());
+		}
+		else {
+			return -1;
+		}
 	}
 }

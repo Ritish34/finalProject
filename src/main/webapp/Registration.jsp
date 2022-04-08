@@ -51,7 +51,7 @@
                 </c:if>    
                 </div>
                 <div class="card-body">
-                    <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data"><!-- enctype ="multiform/form-data" -->
+                    <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data">
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -159,7 +159,7 @@
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
-                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " /><!-- REQUIRED -->
+                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " />REQUIRED
                             </div>
                         </div>
                         <div >
@@ -168,7 +168,7 @@
                         <div data-duplicate="demo">
                         <fieldset>
                             <legend>Address</legend>
-                            <input type="hidden" id="addressid">
+                            <input type="hidden" id="addressid" name="addressid">
                             <div class="form-row">
                                 <div class="value">
                                         <div class="input-group">
@@ -209,13 +209,14 @@
                                         </div>
                                 </div>
                             </div>
-                            <button class=" btn--blue" onclick="removeList()"  type="button">removeeeeeeeeee</button>
+                            <button class=" btn--blue remove_btn" type="button">removeeeeeeeeee</button>
                             <button class=" btn--blue" id="remove" data-duplicate-remove="demo" type="button">- remove</button>
                         </fieldset>
                     </div>
                         <button class="btn btn--radius btn--blue" id="add" data-duplicate-add="demo" type="button">+ add</button>
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit" id="submit">Register</button>
+                            <button class="btn btn--radius-2 btn--red" type="button" id="update">Update</button>
                         </div>
                     </form>
                 </div>

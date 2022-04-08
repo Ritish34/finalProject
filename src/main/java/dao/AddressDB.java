@@ -8,5 +8,9 @@ import model.Address;
 public interface AddressDB {
 	public boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException;
 
-	List<Address> getAddress(int userid) throws SQLException, ClassNotFoundException;
+	public List<Address> getAddress(int userid) throws SQLException, ClassNotFoundException;
+
+	public boolean deleteAddress(int id) throws ClassNotFoundException, SQLException;
+
+	boolean updateAddress(Address obj) throws ClassNotFoundException, SQLException;
 }

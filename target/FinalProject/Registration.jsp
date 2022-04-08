@@ -32,6 +32,11 @@
 </head>
 
 <body>
+	
+	<c:if test="${sessionScope.username != null}">
+		<jsp:include page="Header.jsp"></jsp:include>
+	</c:if>
+	
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
@@ -46,7 +51,7 @@
                 </c:if>    
                 </div>
                 <div class="card-body">
-                    <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data"><!-- enctype ="multiform/form-data" -->
+                    <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data">
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -154,7 +159,7 @@
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
-                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " /><!-- REQUIRED -->
+                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " />REQUIRED
                             </div>
                         </div>
                         <div >
@@ -163,26 +168,27 @@
                         <div data-duplicate="demo">
                         <fieldset>
                             <legend>Address</legend>
+                            <input type="hidden" id="addressid">
                             <div class="form-row">
                                 <div class="value">
                                         <div class="input-group">
                                             <div class="row row-space">
                                                 <div class="input-group-desc m-b-40">
                                                     <label class="label--desc ">Address</label>
-                                                    <textarea class="input--style-5 " name="address[]" rows="4" cols="50"></textarea>
+                                                    <textarea class="input--style-5 " name="address[]" rows="4" cols="50" id="address"></textarea>
                                                 </div>
                                             </div>
                                             <div class="row row-space">
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">Zipcode</label>
-                                                        <input class="input--style-5 w-50 m-t-b-20" type="text" name="zip[]" placeholder="Zipcode">
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="zip" type="text" name="zip[]" placeholder="Zipcode">
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">City</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-20" type="text" name="city[]" placeholder="City">
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="city" type="text" name="city[]" placeholder="City">
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,25 +196,27 @@
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">State</label>
-                                                        <input class="input--style-5 w-50 m-t-b-15" type="text" name="state[]" placeholder="State">
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="state" type="text" name="state[]" placeholder="State">
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">Country</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-15" type="text" name="contry[]" placeholder="Contry">
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="country" type="text" name="contry[]" placeholder="Contry">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class=" btn--blue" data-duplicate-remove="demo" type="button">- remove</button>
                                         </div>
                                 </div>
                             </div>
+                            <button class=" btn--blue remove_btn" type="button">removeeeeeeeeee</button>
+                            <button class=" btn--blue" id="remove" data-duplicate-remove="demo" type="button">- remove</button>
                         </fieldset>
                     </div>
-                        <button class="btn btn--radius btn--blue" data-duplicate-add="demo" type="button">+ add</button>
+                        <button class="btn btn--radius btn--blue" id="add" data-duplicate-add="demo" type="button">+ add</button>
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit" id="submit">Register</button>
+                            <button class="btn btn--radius-2 btn--red" type="button" id="update">Update</button>
                         </div>
                     </form>
                 </div>

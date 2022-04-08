@@ -149,7 +149,8 @@ $(function() {
 					alert("not call")
 				},
 		}); 
-		
+
+let addresslist = new Array();		
 		//call ajax for Address filed
 		$.ajax({
 				type: "post",
@@ -167,27 +168,78 @@ $(function() {
 						$("#form fieldset:last #country").val(value.contry);
 						
 						if(key+1 < Object.keys(r.data).length){
-							$('#add').click();	
+							$('#add').click();
 						}
+						addresslist.push(value.addressid);
 					});
 				});
-	
 				},
 				error: function(textStatus) {
 					alert("not call")
 				},
 		}); 
-		 
+		
+		let arr = new Array();
+		
+		//on submit buttun
+		$("#update").on('click',function(e){
+			
+			$("#form").attr('action','UpdateProfile')
+			//call ajax to delete address
+			e.preventDefault();
+			if(arr.length != 0){
+				$.ajax({
+					type: "post",
+					url: "DeleteAddress",
+					data:{ Array : arr},
+					datatype: "json",
+					success: function(r) {		
+						console.log(r);
+					},
+					error: function(textStatus) {
+						console.log("not call deleteAddress")
+					},
+				});	
+			}
+			
+			$("#submit").click();
+			
+			/*var myForm = $("#form")[0];
+			var formdata = new FormData(form);
+//			var formdata = $("#form").serialize();
+			console.log(formdata);
+			$.ajax({
+	            url: "UpdateProfile",
+	            type: "POST",
+	            contentType:"multipart/form-data",
+	            data: formdata ,
+//	            contentType: false,
+//				dataType:"json",
+	            cache: false,
+	            async: true,
+	            processData:false,
+	            success: function(res){
+	                alert(res);
+	            },
+	            error: function(){
+	                console.log("not call updateprofile");
+	            }           
+        	});*/		
+		});
+		
+		$('#form').on('click', '.remove_btn', function (){
+			let remove = $(this).siblings('input#addressid').val();
+			if(remove != ""){
+				if(addresslist.length > 1){
+					addresslist.pop(remove);
+					arr.push(remove);
+				}	
+			}
+			$(this).siblings('#remove').click();
+			console.log(arr);
+		}); 
 });
 
-function removeList(){
-	var arr = new Array();
-			/*let val = $(this).siblings('input').val();*/
-			 var value = $(this).siblings('input').val();
-			arr.push(value);
-			$('#remove').click();
-			console.log(arr);
-}
 //create function to check entered eamail is already present into database or not 
 function checkEmail() {
 		//get email value
@@ -210,10 +262,10 @@ function checkEmail() {
 		});
 }
 
-//
+/*//
 function submitData(){
 	var form = document.getElementById("form"); 
-}
+}*/
 
 function readURL(input) {
   if (input.files && input.files[0]) {
