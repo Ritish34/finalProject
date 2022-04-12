@@ -30,49 +30,67 @@ main {
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 
+<%
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
+
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+
+response.setHeader("Expires" ,"0"); //Proxy
+%>
 </head>
 <body>
-	<header>
-		<%@ include file="Header.jsp"%>
-	</header>
 
-	<h3 class="capitalize">Hello <c:out value="${sessionScope.username}"></c:out> </h3>
-	<main>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div>
-						<table id="table_id" class="display">
-							<thead>
-								<tr>
-									<th>UserId</th>
-									<th>FirstName</th>
-									<th>LastName</th>
-									<th>Dob</th>
-									<th>MobailNo</th>
-									<th>Gender</th>
-									<th>language</th>
-									<th>Email</th>
-									<th>Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
+	<c:choose>
+		<c:when test="${sessionScope.username != null }">
+			<header>
+				<%@ include file="Header.jsp"%>
+			</header>
+			
+			<h3 class="capitalize">Hello <c:out value="${sessionScope.username}"></c:out> </h3>
+			<main>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div>
+								<table id="table_id" class="display">
+									<thead>
+										<tr>
+											<th>UserId</th>
+											<th>FirstName</th>
+											<th>LastName</th>
+											<th>Dob</th>
+											<th>MobailNo</th>
+											<th>Gender</th>
+											<th>language</th>
+											<th>Email</th>
+											<th>Delete</th>
+											<th>Update</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<button>
+								<c:set var="status" value="adduser" scope="session" ></c:set>
+								<a href="Registration.jsp?status=adduser"> Add New User</a>
+							</button>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<button>
-						<a href="Registration.jsp"> Add New User</a>
-					</button>
-				</div>
-			</div>
-		</div>
-	</main>
-	<footer>
-		<%@ include file="Footer.jsp"%>
-	</footer>
-
+			</main>
+			<footer>
+				<%@ include file="Footer.jsp"%>
+			</footer>
+		</c:when>
+		<c:otherwise>
+			<jsp:forward page="index.jsp"></jsp:forward>
+		</c:otherwise>
+	</c:choose> 
+	
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>

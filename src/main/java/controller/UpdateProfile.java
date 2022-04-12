@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import model.Address;
 import model.User;
@@ -27,6 +31,7 @@ import services.UserServiceImp;
 @MultipartConfig(maxFileSize = 16177215)
 public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger logger = LogManager.getLogger(UpdateProfile.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,11 +57,14 @@ public class UpdateProfile extends HttpServlet {
 				String gender = request.getParameter("gender");
 				
 				//convert checkbox data to string
-				String favlangs="";
+				StringBuffer buf = new StringBuffer();
 				String arr[]=request.getParameterValues("checkbox");
 				for(int i=0;i< arr.length;i++){
-					favlangs+=arr[i]+" ";
+//					favlangs+=arr[i]+" ";
+					buf.append(arr[i]);
+					buf.append(" ");
 				}
+				String favlangs=buf.toString();
 				
 				Part filePart = request.getPart("image");
 				
@@ -111,20 +119,31 @@ public class UpdateProfile extends HttpServlet {
 					int userid = service.updateUser(user, filePart);
 					
 					if(userid == -1) {
-						out.print("fail");
+						out.print("error");
 					}
 					else {
 						boolean flag = ser.updateAddress(list, updatelist, userid);
 						if(flag) {
-							out.print("sucess");
+							out.print("Data Upadted Succesfully");
 						}
 						else {
-							out.print("fail");
+							out.print("error");
 						}
 					}
+					request.setAttribute("UserId", userid);
+					request.setAttribute("status", "edituser");
+					
+					//include request
+					RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
+					rd.include(request, response);
 				} catch (ClassNotFoundException | IOException | SQLException e) {
 					// TODO Auto-generated catch block
+					logger.debug(e);
 					out.print(e);
+				}
+				finally {
+					//out closed
+					out.close();
 				}
 	}
 

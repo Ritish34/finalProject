@@ -49,9 +49,17 @@ public class GetOneUserData extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
-		HttpSession session = request.getSession(false);
-		
-		int userid = (Integer) session.getAttribute("userid");
+		String id = request.getParameter("UserId");
+		int userid;
+		if(id == null| id.equals("")) {
+			
+			HttpSession session = request.getSession(false);
+			
+			userid = (Integer) session.getAttribute("userid");
+		}
+		else {
+			userid = Integer.parseInt(id);
+		}
 		
 		logger.info(userid);
 		
@@ -62,6 +70,7 @@ public class GetOneUserData extends HttpServlet {
 		try {
 			list = impl.getUser(userid);
 			
+			//convert into gson data
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 
 			  json.add("data", gson.toJsonTree(list)); 
@@ -70,6 +79,11 @@ public class GetOneUserData extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
+			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 

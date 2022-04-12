@@ -13,6 +13,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import controller.GetAddressData;
+
 /**
  * Servlet Filter implementation class ValidationFilter
  */
@@ -32,6 +37,7 @@ public class ValidationFilter implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
+	private final static Logger logger = LogManager.getLogger(ValidationFilter.class);
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -49,11 +55,11 @@ public class ValidationFilter implements Filter {
 			String param = en.nextElement();
 			String value = request.getParameter(param);
 			
-			if(isNull(value)) {
-				error.append(param+",");
-				System.out.println(param);
-			}
-			request.setAttribute(param, value);
+				if(!(param.equals("addressid")) && isNull(value)) {
+					error.append(param+",");
+//					logger.debug(param);
+				}
+				request.setAttribute(param, value);
 		}
 		
 		if(error.toString().equals("")) {

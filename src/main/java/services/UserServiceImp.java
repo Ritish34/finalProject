@@ -30,7 +30,7 @@ public class UserServiceImp implements UserService {
 
 		UserDB dao = new UserDBimp();
 
-		if (dao.checkEmail("select * from user where email='" + email + "';")) {
+		if (dao.checkEmail(email)) {
 			logger.debug("Email is Duplicate");
 			return true;
 		} else {
@@ -42,12 +42,22 @@ public class UserServiceImp implements UserService {
 	public User getUserRole(String email, String pass) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		UserDB dao = new UserDBimp();
 		
+		User user = new User();
+		
 		Encryption en = new Encryption();
-
-		pass = en.enctry(pass);
+//
+//		pass = en.encrypt(pass);
 		
 		// return User Object
-		User user = dao.getRole(email, pass);
+		String hash = dao.getPass(email);
+		
+		if(en.decrypt(pass, hash)) {
+			user = dao.getRole(email, hash);
+		}
+		else {
+			user.setId(0);
+			user.setRole(null);
+		}
 		return user;
 	}
 
@@ -58,7 +68,7 @@ public class UserServiceImp implements UserService {
 		
 		Encryption en = new Encryption();
 
-		user.setPassword(en.enctry(user.getPassword()));
+		user.setPassword(en.encrypt(user.getPassword()));
 
 		// create object of dao
 		UserDB dao = new UserDBimp();
@@ -72,15 +82,17 @@ public class UserServiceImp implements UserService {
 
 			boolean flag = false;
 			
-			AddressService ser = new AddressServiceImp();
-
-			for (Address a : list) {
-				a.setUserid(userid);
-				flag = ser.saveAddress(a);
-				if (!flag) {
-					break;
-				}
-			}
+			/*
+			 * AddressService ser = new AddressServiceImp();
+			 * 
+			 * for (Address a : list) {
+			 * 
+			 * a.setUserid(userid); flag = ser.saveAddress(a); if (!flag) { break; } }
+			 */
+			
+			AddressServiceImp ser = new AddressServiceImp();
+			
+			flag = ser.saveAdd(list, userid);
 
 			logger.debug("Address Store Sucessfully ? " + flag);
 			return flag;
@@ -116,15 +128,33 @@ public class UserServiceImp implements UserService {
 	
 	@Override
 	public int updateUser(User user, Part filePart) throws IOException, ClassNotFoundException, SQLException {
+		
+		boolean flag = false;
+		
 		InputStream inputStream= filePart.getInputStream();
 		
 		UserDB dao = new UserDBimp();
 		
-		if(dao.updateUser(user, inputStream)) {
+		flag = dao.updateUser(user);
+		if(inputStream.available() != 0) {
+			flag = dao.setImage(user.getEmail(), inputStream);
+		}
+		
+		if(flag) {
 			return dao.getUserid(user.getEmail());
 		}
 		else {
 			return -1;
 		}
+	}
+	
+	@Override
+	public boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+		
+		Encryption en = new Encryption();
+		
+		UserDB dao = new UserDBimp();
+		
+		return dao.updatePassword(en.encrypt(pass), email);
 	}
 }

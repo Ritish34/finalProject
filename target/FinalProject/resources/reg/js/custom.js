@@ -39,7 +39,7 @@ $(function() {
 				maxlength: 20,
 				regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 			},
-			address: {
+			/*address: {
 				required: true
 			},
 			city: {
@@ -53,7 +53,7 @@ $(function() {
 			},
 			state: {
 				required: true
-			}
+			}*/
 		},
 		// Specify validation error messages
 		messages: {
@@ -92,7 +92,7 @@ $(function() {
 	$("input#pass").change(function(){
 		let pass = $(this).val().trim();
 		let con = $("#confirm").val().trim();
-		console.log(con+"   "+pass);
+//		console.log(con+"   "+pass);
 		if(con != null){
 			if(con === pass){
 			$("span#result").html("Password matched").css("color","green");
@@ -106,10 +106,23 @@ $(function() {
 		
 	});	
 	
+	let hiddenvalue = $("#hiddentype").val();
+	if(hiddenvalue == 'edituser'){
+		$("#passdiv").addClass("invisible");
+		$("#conpassdiv").addClass("invisible");
+		
+		$(".remove_btn").removeClass("invisible");
+		$("#update").removeClass("invisible");
+		$("#remove").addClass("invisible");
+		$("#submit").addClass("invisible");
 	//call ajax for edit Profile
+	
+		let userid = $("#userid").val();
+	
 		$.ajax({
 				type: "post",
 				url: "GetOneUserData",
+				data : { "UserId": userid },
 				datatype: "json",
 				success: function(r) {		
 					console.log(r);
@@ -124,7 +137,6 @@ $(function() {
 //					$("#lang").html(r.data[0].lang);
 
 					let lang = r.data[0].lang;
-					 debugger
 //                		arr.includes($(this).val()) ? $(this).prop('checked', '') : $(this).prop('checked', 'checked')
 					if(lang.includes($("#chk1").val() )){
 						$("#chk1").prop('checked', 'checked')
@@ -144,9 +156,17 @@ $(function() {
 						$("#female").prop('checked','checked');
 					}
 					$("img#show_image").attr("src","data:image/jpg;base64,"+r.data[0].base64Image);
+					
+					Toast.fire({
+		  				icon: 'success',
+		  				title: 'User Data Fetched SuccessFully'
+					})
 				},
 				error: function(textStatus) {
-					alert("not call")
+					Toast.fire({
+		  				icon: 'error',
+		  				title: 'Oops,Something Wrong...'
+					})
 				},
 		}); 
 
@@ -155,6 +175,7 @@ let addresslist = new Array();
 		$.ajax({
 				type: "post",
 				url: "GetAddressData",
+				data : { "UserId": userid },
 				datatype: "json",
 				success: function(r) {		
 					console.log(r);
@@ -169,13 +190,24 @@ let addresslist = new Array();
 						
 						if(key+1 < Object.keys(r.data).length){
 							$('#add').click();
+							$("#form fieldset:last .remove_btn").removeClass("invisible");
+							$("#form fieldset:last #update").removeClass("invisible");
+							$("#form fieldset:last #remove").addClass("invisible");
 						}
 						addresslist.push(value.addressid);
 					});
 				});
+				
+					Toast.fire({
+		  				icon: 'success',
+		  				title: 'Address Fetch Sucessfully'
+					})
 				},
 				error: function(textStatus) {
-					alert("not call")
+					Toast.fire({
+		  				icon: 'error',
+		  				title: 'Oops,Something Wrong...'
+					})
 				},
 		}); 
 		
@@ -184,7 +216,11 @@ let addresslist = new Array();
 		//on submit buttun
 		$("#update").on('click',function(e){
 			
-			$("#form").attr('action','UpdateProfile')
+			$("#form").attr('action','UpdateProfile');
+			
+			$("#form #remove").removeClass(".invisible");
+			$("#form #submit").removeClass("invisible");
+			
 			//call ajax to delete address
 			e.preventDefault();
 			if(arr.length != 0){
@@ -194,10 +230,16 @@ let addresslist = new Array();
 					data:{ Array : arr},
 					datatype: "json",
 					success: function(r) {		
-						console.log(r);
+						Toast.fire({
+		  					icon: 'success',
+		  					title: 'Successfuly Address Deleted'
+						})
 					},
 					error: function(textStatus) {
-						console.log("not call deleteAddress")
+						Toast.fire({
+		  					icon: 'error',
+		  					title: 'Oops,Something Wrong...'
+						})
 					},
 				});	
 			}
@@ -237,29 +279,42 @@ let addresslist = new Array();
 			}
 			$(this).siblings('#remove').click();
 			console.log(arr);
-		}); 
+		});
+		
+		const Toast = Swal.mixin({
+		  toast: true,
+		  position: 'top-end',
+		  showConfirmButton: false,
+		  timer: 3000,
+		  timerProgressBar: true,
+		  didOpen: (toast) => {
+		    toast.addEventListener('mouseenter', Swal.stopTimer)
+		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+		  }
+		});
+		} 
 });
 
 //create function to check entered eamail is already present into database or not 
 function checkEmail() {
-		//get email value
-		var emailInput = document.querySelector('#email').value;
-		//make ajax call to fetch data from db
-		$.ajax({
-			method: "POST",
-			url: "CheckEmail",
-			async: false,
-			data: { emailId: emailInput },
-			success: function(data) {
-				if(data === "Duplicate"){
-					$('#emailStatus').html("Email is Already Registered");
-					$('#email').focus();	// rediret focus to email input tag
-				}
-				else{
-					$('#emailStatus').html(" ");
-				}
+	//get email value
+	var emailInput = document.querySelector('#email').value;
+	//make ajax call to fetch data from db
+	$.ajax({
+		method: "POST",
+		url: "CheckEmail",
+		async: false,
+		data: { emailId: emailInput },
+		success: function(data) {
+			if(data === "Duplicate"){
+				$('#emailStatus').html("Email is Already Registered");
+				$('#email').focus();	// rediret focus to email input tag
 			}
-		});
+			else{
+				$('#emailStatus').html(" ");
+			}
+		}
+	});
 }
 
 /*//

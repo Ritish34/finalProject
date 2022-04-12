@@ -23,13 +23,17 @@ public class UserDBimp implements UserDB {
 	private final static Logger logger = LogManager.getLogger(UserDB.class);
 	
 	@Override
-	public boolean checkEmail(String query) throws ClassNotFoundException, SQLException {
+	public boolean checkEmail(String email) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement("select * from user where email=?");
+		ps.setString(1, email);
+		
 		ResultSet rs = ps.executeQuery();
-
+		
 		BasicConfigurator.configure();
+		
 		boolean flag = rs.next();
+		
 		logger.info("Email is Already present or not =>" + flag);
 		return flag;
 	}
@@ -41,6 +45,7 @@ public class UserDBimp implements UserDB {
 		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
 		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
+		
 		int id = 0;
 		if (rs.next()) {
 			id = rs.getInt("userid");
@@ -66,6 +71,22 @@ public class UserDBimp implements UserDB {
 
 		int num = ps.executeUpdate();
 		return num;
+	}
+	
+	@Override
+	public String getPass(String email) throws SQLException, ClassNotFoundException {
+		String query = "select password from user where email=?";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(query);
+		
+		ps.setString(1, email);
+		
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			return rs.getString("password");
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -104,7 +125,6 @@ public class UserDBimp implements UserDB {
 			String sql = "SELECT * FROM user where userid=?";
 			ps = DBConnectivity.getConnection().prepareStatement(sql);
 			ps.setInt(1, userid);
-			ps.executeQuery();
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -140,7 +160,6 @@ public class UserDBimp implements UserDB {
 				user.setRole(rs.getString("role"));//role is field name
 				list.add(user);
 			}
-
 	return list;
 
 	}
@@ -155,7 +174,6 @@ public class UserDBimp implements UserDB {
 				String sql = "SELECT * FROM user where Role=?";
 				ps = DBConnectivity.getConnection().prepareStatement(sql);
 				ps.setString(1, "User");
-				ps.executeQuery();
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					User user = new User();
@@ -171,7 +189,6 @@ public class UserDBimp implements UserDB {
 					user.setRole(rs.getString("role"));//role is field name
 					list.add(user);
 				}
-
 		return list;
 	}
 	
@@ -182,21 +199,66 @@ public class UserDBimp implements UserDB {
 				ps = DBConnectivity.getConnection().prepareStatement(sql);
 				ps.setInt(1, UserId);
 				int num = ps.executeUpdate();
-				System.out.println("done");
+				logger.debug(UserId + "deleted!!!");
 				return num;
 	}
 	
 	@Override
-	public boolean updateUser(User user,InputStream image) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE user SET firstname=?,lastname=?,gender=?,dob=?,lang=?,picture=? WHERE (email = ?)";
+	public boolean updateUser(User user) throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE user SET firstname=?,lastname=?,gender=?,dob=?,lang=? WHERE (email = ?)";
 		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(sql);
 		ps.setString(1, user.getFname());
 		ps.setString(2, user.getLname());
 		ps.setString(3, user.getGender());
 		ps.setString(4, user.getDob());
 		ps.setString(5, user.getLang());
-		ps.setBlob(6, image);
-		ps.setString(7, user.getEmail());
+		ps.setString(6, user.getEmail());
+		
+		int num = ps.executeUpdate();
+
+		
+		if (num !=0)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean setImage(String email,InputStream image) throws SQLException, ClassNotFoundException {
+		String sql = "UPDATE user SET picture=? WHERE (email = ?)";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(sql);
+		ps.setBlob(1, image);
+		ps.setString(2, email);
+		
+		int num = ps.executeUpdate();
+		
+		if (num !=0)
+			return true;
+		else
+			return false;
+	}
+	@Override
+	public InputStream getImage(String email) throws SQLException, ClassNotFoundException {
+		String sql = "select picture from user where userid = ?";
+		PreparedStatement ps  = DBConnectivity.getConnection().prepareStatement(sql);
+		ps.setString(1, email);
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			Blob blob = rs.getBlob("picture");
+			return blob.getBinaryStream();
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@Override
+	public boolean updatePassword(String pass,String email) throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE user SET password=? WHERE (email = ?) ";
+		PreparedStatement ps = DBConnectivity.getConnection().prepareStatement(sql);
+		ps.setString(1, pass);
+		ps.setString(2, email);
 		
 		int num = ps.executeUpdate();
 		

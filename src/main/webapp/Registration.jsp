@@ -29,10 +29,20 @@
     <link href="resources/reg/css/main.css" rel="stylesheet" media="all">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="resources/reg/css/style.css">
+    
+    <!-- custom alert cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+<%
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
+
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+
+response.setHeader("Expires" ,"0"); //Proxy
+%>    
 </head>
 
 <body>
-	
 	<c:if test="${sessionScope.username != null}">
 		<jsp:include page="Header.jsp"></jsp:include>
 	</c:if>
@@ -41,14 +51,28 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                <c:if test="${sessionScope.username != null}">
+                <c:if test="${param.status == 'edituser' }">
                 	<h2 class="title"> Edit Profile </h2>
                     <h4 id="result"></h4>
+                    <input type="hidden" id="userid" value="${param.UserId }" />
+                    <input type="hidden" id="hiddentype" value="${param.status }" />
+                </c:if>
+                <c:if test="${requestScope.status == 'edituser'}">
+                	<h2 class="title"> Edit Profile </h2>
+                    <h4 id="result"></h4>
+                    <input type="hidden" id="userid" value="${requestScope.UserId }" />
+                    <input type="hidden" id="hiddentype" value="${requestScope.status }" />
+                </c:if>
+                <c:if test="${param.status == 'adduser'}">
+                	<h2 class="title"> Add User </h2>
+                    <h4 id="result"></h4>
+                    <input type="hidden" id="hiddentype" value="${param.status }" />
                 </c:if>
                 <c:if test="${sessionScope.username == null }">
                     <h2 class="title"> Registration Form</h2>
                     <h4 id="result"></h4>
-                </c:if>    
+                </c:if>
+<%--                 <input type="hidden" id="userid" value='<c:out value="${param.userid }"></c:out>' />     --%>
                 </div>
                 <div class="card-body">
                     <form id="form" name="reg_form" action="RegController" method="POST" enctype="multipart/form-data">
@@ -81,25 +105,27 @@
                                 </div>
                             </div>
                         </div>
-                        <c:if test="${sessionScope.username == null }">
-	                        <div class="form-row">
+                        
+<%--                         <c:if test="${sessionScope.username == null }"> --%>
+	                        <div class="form-row" id="passdiv">
 	                            <div class="name">Password</div>
 	                            <div class="value">
 	                                <div class="input-group">
-	                                    <input class="input--style-5" type="password" name="password" id="pass" value='<c:out value="${param.password }"></c:out>'>
+	                                    <input class="input--style-5" type="password" name="password" id="pass" >
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <div class="form-row">
+	                        <div class="form-row" id="conpassdiv">
 	                            <div class="name">Confirm Password</div>
 	                            <div class="value">
 	                                <div class="input-group">
-	                                    <input class="input--style-5" type="password" name="conpass" value='<c:out value="${param.password }"></c:out>' id="confirm" required>
+	                                    <input class="input--style-5" type="password" name="conpass"  id="confirm" required>
 	                                    <span id="result"> </span>
 	                                </div>
 	                            </div>
 	                        </div>
-                        </c:if>
+<%--                         </c:if> --%>
+                        
                         <div class="form-row m-b-55">
                             <div class="name">Date Of Birth</div>
                             <div class="value">
@@ -159,7 +185,7 @@
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
-                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " />REQUIRED
+                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " required/>
                             </div>
                         </div>
                         <div >
@@ -175,20 +201,20 @@
                                             <div class="row row-space">
                                                 <div class="input-group-desc m-b-40">
                                                     <label class="label--desc ">Address</label>
-                                                    <textarea class="input--style-5 " name="address[]" rows="4" cols="50" id="address"></textarea>
+                                                    <textarea class="input--style-5 " name="address[]" rows="4" cols="50" id="address" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="row row-space">
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">Zipcode</label>
-                                                        <input class="input--style-5 w-50 m-t-b-20" id="zip" type="text" name="zip[]" placeholder="Zipcode">
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="zip" type="text" name="zip[]" placeholder="Zipcode" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">City</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-20" id="city" type="text" name="city[]" placeholder="City">
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="city" type="text" name="city[]" placeholder="City" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,27 +222,28 @@
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">State</label>
-                                                        <input class="input--style-5 w-50 m-t-b-15" id="state" type="text" name="state[]" placeholder="State">
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="state" type="text" name="state[]" placeholder="State" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">Country</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-15" id="country" type="text" name="contry[]" placeholder="Contry">
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="country" type="text" name="contry[]" placeholder="Contry" required>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                 </div>
                             </div>
-                            <button class=" btn--blue remove_btn" type="button">removeeeeeeeeee</button>
+                            <button class=" btn--blue remove_btn invisible" type="button">removeeeeeeeeee</button>
                             <button class=" btn--blue" id="remove" data-duplicate-remove="demo" type="button">- remove</button>
                         </fieldset>
                     </div>
                         <button class="btn btn--radius btn--blue" id="add" data-duplicate-add="demo" type="button">+ add</button>
                         <div>
-                            <button class="btn btn--radius-2 btn--red" type="submit" id="submit">Register</button>
-                            <button class="btn btn--radius-2 btn--red" type="button" id="update">Update</button>
+                            <button class="btn btn--radius-2 btn--red" type="submit" id="submit">Register</button><br>
+                            <button class="btn btn--radius-2 btn--red invisible" type="button" id="update">Update</button>
+                            <button class="btn btn--radius-2 btn--red" type="reset">Clear Form</button>
                         </div>
                     </form>
                 </div>

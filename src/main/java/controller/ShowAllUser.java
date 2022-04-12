@@ -61,6 +61,11 @@ public class ShowAllUser extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
+			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 

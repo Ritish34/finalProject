@@ -44,16 +44,20 @@ public class loginController extends HttpServlet {
 		//set response type
 		response.setContentType("text/html");
 		
+		//get form parameter value
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 		
 		logger.debug("inside loginController");
 		
 		try {
+			//make object of service
 			UserService service = new UserServiceImp();
 			
+			//call service method
 			User user = service.getUserRole(email, pass);
 			
+			//get role from database
 			String role = user.getRole();
 				
 			if(role == null) {
@@ -83,6 +87,7 @@ public class loginController extends HttpServlet {
 			out.print(e);
 		}
 		finally {
+			//out closed
 			out.close();
 		}
 		

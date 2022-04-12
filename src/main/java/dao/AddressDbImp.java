@@ -22,6 +22,7 @@ public class AddressDbImp implements AddressDB {
 		ps.setString(6, obj.getContry());
 
 		int num = ps.executeUpdate();
+		
 		if (num != 0)
 			return true;
 		else
@@ -48,7 +49,7 @@ public class AddressDbImp implements AddressDB {
 			obj.setContry(rs.getString(7));
 			list.add(obj);
 		}
-		
+
 		return list;
 	}
 	
@@ -59,6 +60,7 @@ public class AddressDbImp implements AddressDB {
 		ps.setInt(1, id);
 		
 		int num = ps.executeUpdate();
+		
 		if (num != 0)
 			return true;
 		else
@@ -77,6 +79,7 @@ public class AddressDbImp implements AddressDB {
 		ps.setInt(6, obj.getAddressid());
 		
 		int num = ps.executeUpdate();
+		
 		if (num != 0)
 			return true;
 		else

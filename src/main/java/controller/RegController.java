@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.log4j.LogManager;
@@ -57,11 +58,14 @@ public class RegController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		
 		//convert checkbox data to string
-		String favlangs="";
+		StringBuffer buf = new StringBuffer();
 		String arr[]=request.getParameterValues("checkbox");
 		for(int i=0;i< arr.length;i++){
-			favlangs+=arr[i]+" ";
+//			favlangs+=arr[i]+" ";
+			buf.append(arr[i]);
+			buf.append(" ");
 		}
+		String favlangs=buf.toString();
 		
 //		Part filePart
 //        = request.getPart("file");
@@ -108,10 +112,16 @@ public class RegController extends HttpServlet {
 			if(flag) {
 				
 				logger.info("Registration Sucessfull");
-				
-				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-				rd.include(request, response);
+				HttpSession session = request.getSession(false);
+				if (session == null) {
+					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
+					RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+					rd.include(request, response);
+				} else {
+					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
+					RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
+					rd.include(request, response);
+				}
 			}
 			else {
 				
@@ -123,7 +133,12 @@ public class RegController extends HttpServlet {
 			}
 		} catch (ClassNotFoundException | FileNotFoundException | SQLException | ParseException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
+			logger.debug(e);
 			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 }

@@ -1,17 +1,4 @@
 
-/* $(document).ready(function(){
-    //call table plugin
-var table =$('#empTable').DataTable({
-                "ajax":"",
-                "columns": [                                        
-                    {"data" : "id"},
-                    {"data" : "employee_name"},
-                    {"data" : "employee_salary"},
-                    {"data" : "employee_age"},
-                    {"data" : "profile_image"},
-                ],
-            });
-});*/
 $(document).ready(function() {
 
 	var table = $('#table_id').DataTable({
@@ -30,7 +17,8 @@ $(document).ready(function() {
 			{ "data": "gender" },
 			{ "data": "lang" },
 			{ "data": "email" },
-			{ "defaultContent": "	<a class='btn btn-danger' id='delete-btn' role='button'>Delete</a>" }
+			{ "defaultContent": "	<a class='btn btn-danger' id='delete-btn' role='button'>Delete</a>" },
+			{ "defaultContent": "	<a class='btn btn-info' id='update-btn' role='button'>Update</a>" },
 		]
 	});
 
@@ -52,6 +40,17 @@ $(document).ready(function() {
 				alert("not call")
 			},
 		})
+
+	});
+	
+	$('#table_id').on('click', '#update-btn', function(event) {
+		event.preventDefault();
+		var data = table.row($(this).parents('tr')).data();
+		var UserId = data.id;
+		console.log(UserId);
+
+		var url = "Registration.jsp?status=edituser&UserId="+UserId;
+		window.location = url;
 
 	});
 });

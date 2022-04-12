@@ -38,6 +38,7 @@ public class CheckEmailController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		//make printwriter object
 		PrintWriter out = response.getWriter();
 		
 		String email = request.getParameter("emailId");
@@ -54,7 +55,12 @@ public class CheckEmailController extends HttpServlet {
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
+			logger.debug(e);
 			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 }

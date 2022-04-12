@@ -50,10 +50,19 @@ public class GetAddressData extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
+		String id = request.getParameter("UserId");
+		int userid;
 		
-		int userid = (Integer) session.getAttribute("userid");
+		//if userid is not present than use session userid
+		if(id == null| id.equals("")) {
+			
+			userid = (Integer) session.getAttribute("userid");
+		}
+		else {
+			userid = Integer.parseInt(id);
+		}
 		
-		logger.info(userid);
+		logger.debug(userid);
 		
 		
 		AddressService impl = new AddressServiceImp();
@@ -64,6 +73,7 @@ public class GetAddressData extends HttpServlet {
 			
 			session.setAttribute("addresslist", list);
 			
+			//convert data into gson type
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 
 			  json.add("data", gson.toJsonTree(list)); 
@@ -72,6 +82,11 @@ public class GetAddressData extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
+			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 

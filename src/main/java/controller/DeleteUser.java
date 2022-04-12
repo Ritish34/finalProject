@@ -40,11 +40,14 @@ public class DeleteUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		BasicConfigurator.configure();
+		
+		//set content type of response
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
 		String UserId = request.getParameter("UserId");
 		UserService impl = new UserServiceImp();
+		
 		int status;
 		try {
 			status = impl.deleteUserById(Integer.parseInt(UserId));
@@ -58,6 +61,11 @@ public class DeleteUser extends HttpServlet {
 		} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
+			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 	}
 
@@ -66,7 +74,7 @@ public class DeleteUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 }

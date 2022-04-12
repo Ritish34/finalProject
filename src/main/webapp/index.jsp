@@ -31,6 +31,13 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="resources/login/css/main.css" />">
 <!--===============================================================================================-->
+<%
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
+
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+
+response.setHeader("Expires" ,"0"); //Proxy
+%>
 </head>
 <body>
 
@@ -73,7 +80,7 @@
 					</div>
 
 					<div class="text-center p-t-12">
-						<span class="txt1"> Forgot </span> <a class="txt2" href="#">
+						<span class="txt1"> Forgot </span> <a class="txt2" href="ForgetPassword.jsp">
 							Username / Password? </a>
 					</div>
 

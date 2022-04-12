@@ -27,5 +27,8 @@ public interface UserService {
 	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
 
 	public int updateUser(User user, Part filePart) throws IOException, ClassNotFoundException, SQLException;
+
+	boolean updatePassword(String pass, String email)
+			throws ClassNotFoundException, SQLException, NoSuchAlgorithmException;
 	
 }

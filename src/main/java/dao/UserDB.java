@@ -23,5 +23,13 @@ public interface UserDB {
 	
 	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
 
-	boolean updateUser(User user, InputStream image) throws ClassNotFoundException, SQLException;
+	InputStream getImage(String email) throws SQLException, ClassNotFoundException;
+
+	boolean updateUser(User user) throws ClassNotFoundException, SQLException;
+
+	boolean setImage(String email, InputStream image) throws SQLException, ClassNotFoundException;
+
+	boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException;
+
+	String getPass(String email) throws SQLException, ClassNotFoundException;
 }

@@ -37,14 +37,17 @@ public class DeleteAddress extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		//set response content type
 		response.setContentType("text/html");
 		
+		//make printwriter object
 		PrintWriter out = response.getWriter();
 		
-//		String arr = request.getParameter("Array");
-		
+		//take addressid which we want to delete
 		String arr[] = request.getParameterValues("Array[]");
 		
+		//make service class object
 		AddressService service = new AddressServiceImp();
 		
 		try {
@@ -60,6 +63,10 @@ public class DeleteAddress extends HttpServlet {
 			// TODO Auto-generated catch block
 			logger.error(e);
 			out.print(e);
+		}
+		finally {
+			//out closed
+			out.close();
 		}
 		
 	}
