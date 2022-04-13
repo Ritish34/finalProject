@@ -7,6 +7,9 @@
 <meta charset="ISO-8859-1">
 <title>User Dashboard</title>
 
+    <!-- custom alert cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
 

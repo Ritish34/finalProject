@@ -29,17 +29,9 @@ response.setHeader("Expires" ,"0"); //Proxy
 %>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${sessionScope.username != null }">
-			<div class="container">
-				<p>@Copyrights</p>
-			</div>
-	
-		</c:when>
-		<c:otherwise>
-			<jsp:forward page="index.jsp"></jsp:forward>
-		</c:otherwise>
-	</c:choose> 
+		<div class="container">
+			<p>@Copyrights</p>
+		</div>
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

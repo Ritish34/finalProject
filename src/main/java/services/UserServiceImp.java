@@ -1,5 +1,6 @@
 package services;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
@@ -51,8 +52,14 @@ public class UserServiceImp implements UserService {
 		// return User Object
 		String hash = dao.getPass(email);
 		
-		if(en.decrypt(pass, hash)) {
-			user = dao.getRole(email, hash);
+		if(hash != null) {
+			if(en.decrypt(pass, hash)) {
+				user = dao.getRole(email, hash);
+			}
+			else {
+				user.setId(0);
+				user.setRole(null);
+			}
 		}
 		else {
 			user.setId(0);
@@ -65,6 +72,10 @@ public class UserServiceImp implements UserService {
 			ClassNotFoundException, SQLException, IOException {
 
 		InputStream inputStream= filePart.getInputStream();
+		
+		if(inputStream.available() == 0) {
+			inputStream = new FileInputStream("F:\\Inexture-Internship\\defualt image.jpg");
+		}
 		
 		Encryption en = new Encryption();
 

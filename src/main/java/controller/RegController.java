@@ -60,15 +60,17 @@ public class RegController extends HttpServlet {
 		//convert checkbox data to string
 		StringBuffer buf = new StringBuffer();
 		String arr[]=request.getParameterValues("checkbox");
-		for(int i=0;i< arr.length;i++){
-//			favlangs+=arr[i]+" ";
-			buf.append(arr[i]);
-			buf.append(" ");
+		if(arr.length != 0) {
+			for(int i=0;i< arr.length;i++){
+				buf.append(arr[i]);
+				buf.append(" ");
+			}
+		}
+		else {
+			buf.append("Not Selected");
 		}
 		String favlangs=buf.toString();
 		
-//		Part filePart
-//        = request.getPart("file");
 		Part filePart = request.getPart("image");
 		
 		//take addresses
@@ -113,12 +115,14 @@ public class RegController extends HttpServlet {
 				
 				logger.info("Registration Sucessfull");
 				HttpSession session = request.getSession(false);
-				if (session == null) {
+				if (session.getAttribute("username") == null) {
 					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
 					RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 					rd.include(request, response);
 				} else {
-					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
+					request.setAttribute("status", "adduser");
+					request.setAttribute("back", "Registration");
+					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Added</h4></center>");
 					RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 					rd.include(request, response);
 				}
@@ -126,7 +130,7 @@ public class RegController extends HttpServlet {
 			else {
 				
 				logger.info("Registration Error");
-				
+				request.setAttribute("back", "Registration");
 				out.print("<center><h4 style='color:red;background:#9053c7;'>Registration fails</h4></center>");
 				RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 				rd.include(request, response);
@@ -138,7 +142,9 @@ public class RegController extends HttpServlet {
 		}
 		finally {
 			//out closed
-			out.close();
+			if (out != null) {
+				out.close();
+			}
 		}
 	}
 }

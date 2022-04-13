@@ -21,12 +21,14 @@ $(function() {
 			first_name: {
 				required: true,
 				minlength: 3,
-				regex: /^([a-zA-Z])+(\s)*$/
+				lettersonly: true
+				// regex: /^([a-zA-Z])+(\s)*$/
 			},
 			last_name: {
 				required: true,
 				minlength: 3,
-				regex: /^([a-zA-Z])+(\s)*$/
+				// regex: /^([a-zA-Z])+(\s)*$/
+				lettersonly: true
 			},
 			email: {
 				required: true,
@@ -39,21 +41,40 @@ $(function() {
 				maxlength: 20,
 				regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 			},
-			/*address: {
-				required: true
+			conpass : {
+				required: true,
+				minlength: 8,
+				maxlength: 20,
+				equalTo : "#pass"
+			},
+			phone : {
+				required : true,
+				rangelength : [10, 10],
+				number : true
+			},
+			date : {
+				required : true,
+			},
+			image : {
+				required : true,
 			},
 			city: {
-				required: true
+				required: true,
+				lettersonly: true
 			},
 			contry: {
-				required: true
+				required: true,
+				lettersonly: true
 			},
 			zip : {
-				required : true
+				required : true,
+				number : true,
+				rangelength : [5, 6],
 			},
 			state: {
-				required: true
-			}*/
+				required: true,
+				lettersonly: true
+			}
 		},
 		// Specify validation error messages
 		messages: {
@@ -69,43 +90,38 @@ $(function() {
 				regex: "Password must contain Minimum eight characters, at least one letter, one number and one special characte"
 			},
 			email: "Please enter a valid email address",
+			conpass : {
+				required: "Please provide a Confirm password",
+				minlength: "Your password must be at least 8 characters long",
+				equalTo : "PassWord Mismatched!!",
+			},
+			phone : {
+				required: "Phone Number Can't Be Empty'",
+				rangelength : "Length Should be 10",
+				number : "only Numbers Are Allowed",
+			},
+			date : {
+				required: "Enter Date Of Birth",
+			},
+			zip : {
+				number : "only Numbers Are Allowed",
+				rangelength : "Zip length should be 5 or 6 Digit only"
+			},
+			city: {
+				lettersonly : "Only Letters Allowed!!",
+			},
+			contry: {
+				lettersonly : "Only Letters Allowed!!",
+			},
+			state: {
+				lettersonly : "Only Letters Allowed!!",
+			},
 		},
 		submitHandler: function(form) {
 			form.submit();
 		}
 	});
-	
-	$("input#confirm").change(function(){
-		let con = $(this).val().trim();
-		let pass = $("#pass").val().trim();
-		console.log(con+"   "+pass);
-		if(con === pass){
-			$("span#result").html("Password matched").css("color","green");
-			console.log("matched");
-		}
-		else{
-			$("span#result").html("Password is not match with confirm password!!").css("color","red");
-			$(this).focus();
-		}
-	});
-	
-	$("input#pass").change(function(){
-		let pass = $(this).val().trim();
-		let con = $("#confirm").val().trim();
-//		console.log(con+"   "+pass);
-		if(con != null){
-			if(con === pass){
-			$("span#result").html("Password matched").css("color","green");
-			console.log("matched");
-		}
-		else{
-			$("span#result").html("Password is not match with confirm password!!").css("color","red");
-			$(this).focus();
-		}
-		}
 		
-	});	
-	
 	let hiddenvalue = $("#hiddentype").val();
 	if(hiddenvalue == 'edituser'){
 		$("#passdiv").addClass("invisible");
@@ -244,29 +260,7 @@ let addresslist = new Array();
 				});	
 			}
 			
-			$("#submit").click();
-			
-			/*var myForm = $("#form")[0];
-			var formdata = new FormData(form);
-//			var formdata = $("#form").serialize();
-			console.log(formdata);
-			$.ajax({
-	            url: "UpdateProfile",
-	            type: "POST",
-	            contentType:"multipart/form-data",
-	            data: formdata ,
-//	            contentType: false,
-//				dataType:"json",
-	            cache: false,
-	            async: true,
-	            processData:false,
-	            success: function(res){
-	                alert(res);
-	            },
-	            error: function(){
-	                console.log("not call updateprofile");
-	            }           
-        	});*/		
+			$("#submit").click();		
 		});
 		
 		$('#form').on('click', '.remove_btn', function (){

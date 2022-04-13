@@ -149,3 +149,30 @@ h6 {
 {
 	min-height:100px
 }
+.navbar-nav{
+    flex-direction: row;
+}
+.navbar>.container{
+    flex-wrap: nowrap !important;
+}
+.navbar-nav {
+    flex-direction: row;
+}
+
+@media (min-width: 1200px){
+    .col-xl-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .container{
+        max-width: 1500px !important;
+    }
+}
+@media (min-width: 768px){
+    .container {
+        max-width: 100% !important;
+    }
+}
+

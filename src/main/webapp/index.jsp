@@ -31,6 +31,8 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="resources/login/css/main.css" />">
 <!--===============================================================================================-->
+    <!-- custom alert cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
 
@@ -85,7 +87,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 					</div>
 
 					<div class="text-center p-t-136">
-						<a class="txt2" href="Registration.jsp"> Create your Account <i
+						<a class="txt2" href="Registration.jsp?back=Registration"> Create your Account <i
 							class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>
@@ -118,6 +120,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 	</script>
 	<!--===============================================================================================-->
 	<script src="<c:url value="resources/login/js/main.js" />"></script>
+	<script src="<c:url value="resources/login/js/custom.js" />"></script>
 
 </body>
 </html>

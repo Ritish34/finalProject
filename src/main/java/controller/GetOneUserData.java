@@ -51,7 +51,7 @@ public class GetOneUserData extends HttpServlet {
 		
 		String id = request.getParameter("UserId");
 		int userid;
-		if(id == null| id.equals("")) {
+		if(id == null|| id.equals("")) {
 			
 			HttpSession session = request.getSession(false);
 			

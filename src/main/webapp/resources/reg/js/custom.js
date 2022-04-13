@@ -45,21 +45,11 @@ $(function() {
 				maxlength: 20,
 				equalTo : "#pass"
 			},
-			/*address: {
-				required: true
+			phone : {
+				required : true,
+				rangelength : [10, 10],
+				number : true
 			},
-			city: {
-				required: true
-			},
-			contry: {
-				required: true
-			},
-			zip : {
-				required : true
-			},
-			state: {
-				required: true
-			}*/
 		},
 		// Specify validation error messages
 		messages: {
@@ -79,14 +69,63 @@ $(function() {
 				required: "Please provide a Confirm password",
 				minlength: "Your password must be at least 8 characters long",
 				equalTo : "PassWord Mismatched!!",
-			}
+			},
+			phone : {
+				required: "Phone Number Can't Be Empty'",
+				rangelength : "Length Should be 10",
+				number : "only Numbers Are Allowed",
+			},
+			date : {
+				required: "Enter Date Of Birth",
+			},
 		},
 		submitHandler: function(form) {
-			console.log(form);
 			form.submit();
 		}
 	});
-		
+
+	$('[name*="zip"]').each(function() {
+        $(this).rules('add', {
+            required : true,
+			number : true,
+			rangelength : [5, 6],
+			messages: { 
+				number : "only Numbers Are Allowed",
+				rangelength : "Zip length should be 5 or 6 Digit only"
+			}
+        });
+    });
+	
+	$('[name*="city"]').each(function() {
+        $(this).rules('add', {
+            required: true,
+			regex: /^([a-zA-Z])+(\s)*$/,
+			messages: { 
+				regex : "Only Letters Allowed!!",
+			}
+        });
+    });
+
+	$('[name*="contry"]').each(function() {
+        $(this).rules('add', {
+            required: true,
+			regex: /^([a-zA-Z])+(\s)*$/,
+			messages: { 
+				regex : "Only Letters Allowed!!",
+			}
+        });
+    });
+
+	$('[name*="state"]').each(function() {
+        $(this).rules('add', {
+            required: true,
+			regex: /^([a-zA-Z])+(\s)*$/,
+			messages: { 
+				regex : "Only Letters Allowed!!",
+			}
+        });
+    });
+
 	let hiddenvalue = $("#hiddentype").val();
 	if(hiddenvalue == 'edituser'){
 		$("#passdiv").addClass("invisible");
@@ -258,6 +297,12 @@ let addresslist = new Array();
 function checkEmail() {
 	//get email value
 	var emailInput = document.querySelector('#email').value;
+	
+	var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/;
+	
+	if(!regex.test(emailInput)){
+		$('#emailStatus').html(" ");
+	}else{
 	//make ajax call to fetch data from db
 	$.ajax({
 		method: "POST",
@@ -268,18 +313,18 @@ function checkEmail() {
 			if(data === "Duplicate"){
 				$('#emailStatus').html("Email is Already Registered");
 				$('#email').focus();	// rediret focus to email input tag
+				$('#submit').attr('disabled',true);
+				$('#update').attr('disabled',true);
 			}
 			else{
 				$('#emailStatus').html(" ");
+				$('#submit').attr('disabled',false);
+				$('#update').attr('disabled',false);
 			}
 		}
 	});
+	}
 }
-
-/*//
-function submitData(){
-	var form = document.getElementById("form"); 
-}*/
 
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -311,3 +356,4 @@ $("#new_image").change(function(){
     } 
 });
 
+dob.max = new Date().toISOString().split("T")[0];

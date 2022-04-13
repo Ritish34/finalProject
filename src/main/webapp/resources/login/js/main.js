@@ -54,7 +54,7 @@
             }
             /*check password format*/
             else if($(input).val().trim().match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/) == null){
-                $("#pass").attr('data-validate', "Password must contain Minimum eight characters, at least one letter, one number and one special characte");
+                $("#pass").attr('data-validate', "Password must contain Minimum eight characters, at least one letter, one number and one special character");
                 return false;
             }
         }

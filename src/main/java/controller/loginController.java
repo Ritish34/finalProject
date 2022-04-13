@@ -60,8 +60,9 @@ public class loginController extends HttpServlet {
 			//get role from database
 			String role = user.getRole();
 				
-			if(role == null) {
-				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Login Fails</h4></center>");
+			if(role == null || role.isEmpty()) {
+//				out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>Username And Password Mismatched!!</h4></center>");
+				out.print("<input type='hidden' id='response' value='Username And Password Mismatched!!'>");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.include(request, response);
 			}
@@ -79,9 +80,7 @@ public class loginController extends HttpServlet {
 					response.sendRedirect("User-Dashboard.jsp");
 				}
 			}
-			
-			
-			
+
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			out.print(e);

@@ -30,6 +30,9 @@ main {
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 
+    <!-- custom alert cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
 
@@ -75,7 +78,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 						<div class="col-md-12">
 							<button>
 								<c:set var="status" value="adduser" scope="session" ></c:set>
-								<a href="Registration.jsp?status=adduser"> Add New User</a>
+								<a href="Registration.jsp?status=adduser&back=Registration"> Add New User</a>
 							</button>
 						</div>
 					</div>
@@ -97,5 +100,6 @@ response.setHeader("Expires" ,"0"); //Proxy
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="resources/js/datatable.js"></script>
+	<script type="text/javascript" src="resources/js/showmessage.js"></script>
 </body>
 </html>

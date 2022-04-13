@@ -7,14 +7,14 @@
 <meta charset="ISO-8859-1">
 <title>Profile Page</title>
 
-<!-- Add CSS File -->
-<link rel="stylesheet" type="text/css" href="resources/css/profile.css">
-
 <!-- Add Bootstrap CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
+
+<!-- Add CSS File -->
+<link rel="stylesheet" type="text/css" href="resources/css/profile.css">	
 
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
@@ -42,7 +42,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 												<div class="m-b-25">
 													<img
 														src="https://img.icons8.com/bubbles/100/000000/user.png"
-														class="img-radius" alt="User-Profile-Image" id="image" width="150px" height="150px">
+														class="img-radius" alt="User-Profile-Image" id="image" width="100%" height="100%">
 												</div>
 												<h6 class="f-w-600"><c:out value="${requestScope.user.getFname()}"></c:out></h6>
 												<img src="${requestScope.user.getImage()}">
@@ -83,8 +83,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 													</div>
 													<div class="col-sm-12">
 														<button>
-															<c:set var="status" value="edituser" scope="session" ></c:set>
-															<a href="Registration.jsp?status=edituser">Edit Profile</a>
+															<a href="Registration.jsp?status=edituser&back=Registration">Edit Profile</a>
 														</button>
 													</div>
 												</div>

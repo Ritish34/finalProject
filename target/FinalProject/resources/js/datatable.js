@@ -49,7 +49,7 @@ $(document).ready(function() {
 		var UserId = data.id;
 		console.log(UserId);
 
-		var url = "Registration.jsp?status=edituser&UserId="+UserId;
+		var url = "Registration.jsp?back=Registration&status=edituser&UserId="+UserId;
 		window.location = url;
 
 	});

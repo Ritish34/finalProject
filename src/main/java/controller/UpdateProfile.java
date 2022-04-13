@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.log4j.LogManager;
@@ -119,23 +120,32 @@ public class UpdateProfile extends HttpServlet {
 					int userid = service.updateUser(user, filePart);
 					
 					if(userid == -1) {
-						out.print("error");
+						out.print("<input type='hidden' id='response' value='error'>");
 					}
 					else {
 						boolean flag = ser.updateAddress(list, updatelist, userid);
 						if(flag) {
-							out.print("Data Upadted Succesfully");
+							out.print("<input type='hidden' id='response' value='success'>");
 						}
 						else {
-							out.print("error");
+							out.print("<input type='hidden' id='response' value='error'>");
 						}
 					}
 					request.setAttribute("UserId", userid);
 					request.setAttribute("status", "edituser");
+					request.setAttribute("back", "Registration");
 					
+					HttpSession session = request.getSession(false);
 					//include request
-					RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
-					rd.include(request, response);
+					if(session.getAttribute("role").equals("Admin")) {
+						RequestDispatcher rd = request.getRequestDispatcher("Admin-Dashboard.jsp");
+						rd.include(request, response);
+					}
+					else {
+						RequestDispatcher rd = request.getRequestDispatcher("User-Dashboard.jsp");
+						rd.include(request, response);
+					}
+					
 				} catch (ClassNotFoundException | IOException | SQLException e) {
 					// TODO Auto-generated catch block
 					logger.debug(e);

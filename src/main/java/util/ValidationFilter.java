@@ -2,6 +2,8 @@ package util;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Part;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -46,32 +49,94 @@ public class ValidationFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		
-		System.out.println("inside filter");
+		logger.debug("inside filter");
 		StringBuilder error=new StringBuilder(""); 
 		
-		Enumeration<String> en = request.getParameterNames();
+		HashMap<String, String> map = new HashMap<String, String>();
+		String fname = request.getParameter("first_name");
+		String lname = request.getParameter("last_name");
+		String email = request.getParameter("email");
+		String pass = request.getParameter("password");
+		String date = request.getParameter("date");
+		String phone = request.getParameter("phone");
+		String gender = request.getParameter("gender");
+		String filePart = request.getParameter("image");
+		//take addresses
+		String[] address = request.getParameterValues("address[]");
+		String[] zip = request.getParameterValues("zip[]");
+		String[] city = request.getParameterValues("city[]");
+		String[] state = request.getParameterValues("state[]");
+		String[] contry = request.getParameterValues("contry[]");
 		
-		while(en.hasMoreElements()) {
-			String param = en.nextElement();
-			String value = request.getParameter(param);
-			
-				if(!(param.equals("addressid")) && isNull(value)) {
-					error.append(param+",");
-//					logger.debug(param);
-				}
-				request.setAttribute(param, value);
+		if(isNull(fname) || !checkRegex("[a-zA-Z\\s]+",fname)) {
+			error.append("first_name ,");
 		}
+		else {
+			request.setAttribute("first_name", fname);
+		}
+		if(isNull(lname) || !checkRegex("^([a-zA-Z])+(\\s)*$",lname)) {
+			error.append("last_name ,");
+		}
+		else {
+			request.setAttribute("last_name", lname);
+		}
+		if(isNull(email) || !checkRegex("^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}$",email)) {
+			error.append("email ,");
+		}
+		else {
+			request.setAttribute("email", email);
+		}
+		if(isNull(pass) || !checkRegex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",pass)) {
+			error.append("password ,");
+		}
+		else {
+			request.setAttribute("password", pass);
+		}
+		if(isNull(date)) {
+			error.append("date ,");
+		}
+		else {
+			request.setAttribute("date", date);
+		}
+		if(isNull(phone)) {
+			error.append("phone ,");
+		}
+		else {
+			request.setAttribute("phone", phone);
+		}
+		if(isNull(gender)) {
+			error.append("gender ,");
+		}
+		for(int i=0;i<address.length;i++) {
+			if(isNull(address[i]) || isNull(zip[i]) || isNull(city[i]) || isNull(state[i]) || isNull(contry[i]) ) {
+				error.append("Address ,");
+			}
+		}
+
+//		Enumeration<String> en = request.getParameterNames();
+//		
+//		while(en.hasMoreElements()) {
+//			String param = en.nextElement();
+//			String value = request.getParameter(param);
+//			
+//				if(!(param.equals("addressid")) && isNull(value)) {
+//					error.append(param+",");
+////					logger.debug(param);
+//				}
+//			map.put(param, value);	
+//		}
 		
 		if(error.toString().equals("")) {
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
 		}
 		else
-		{
+		{		
 			error.append(" can't be Empty!!");
 			response.setContentType("text/html");
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/Registration.jsp").forward(request, response);
+			request.setAttribute("back", "Registration");
+			request.getRequestDispatcher("Registration.jsp").forward(request, response);
 		}
 	}
 
@@ -96,6 +161,7 @@ public class ValidationFilter implements Filter {
 		
 		Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(element); 
-        return (matcher.matches());
+        boolean flag = matcher.matches();
+        return (flag);
 	}
 }

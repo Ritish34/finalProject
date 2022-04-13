@@ -75,7 +75,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 						<div class="col-md-12">
 							<button>
 								<c:set var="status" value="adduser" scope="session" ></c:set>
-								<a href="Registration.jsp?status=adduser"> Add New User</a>
+								<a href="Registration.jsp?status=adduser&back=Registration"> Add New User</a>
 							</button>
 						</div>
 					</div>

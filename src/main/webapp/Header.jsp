@@ -8,6 +8,9 @@
 <title>Header File</title>
 <!-- Bootstrap -->
     <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- custom css -->
+<link href="resources/css/header.css" rel="stylesheet">
     
     <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
@@ -21,7 +24,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 
 	<c:choose>
 		<c:when test="${sessionScope.username != null }">
-			<nav class="navbar navbar-default navbar-inverse navbar-static-top">
+			<nav class="navbar navbar-default navbar-static-top">
 		        <div class="container">
 		          <!-- Brand and toggle get grouped for better mobile display -->
 		          <div class="navbar-header">
