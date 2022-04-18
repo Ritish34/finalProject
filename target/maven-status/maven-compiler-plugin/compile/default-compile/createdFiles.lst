@@ -8,7 +8,7 @@ controller\ShowAllUser.class
 controller\UpdateProfile.class
 model\Address.class
 controller\DeleteUser.class
-controller\loginController.class
+controller\LoginController.class
 services\AddressService.class
 dao\DBConnectivity.class
 util\GeneratePassword.class

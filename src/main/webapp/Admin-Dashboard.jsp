@@ -33,6 +33,8 @@ main {
     <!-- custom alert cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 
+</head>
+<body>
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
 
@@ -40,9 +42,6 @@ response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 
 response.setHeader("Expires" ,"0"); //Proxy
 %>
-</head>
-<body>
-
 	<c:choose>
 		<c:when test="${sessionScope.username != null }">
 			<header>
@@ -76,10 +75,15 @@ response.setHeader("Expires" ,"0"); //Proxy
 							</div>
 						</div>
 						<div class="col-md-12">
-							<button>
+							<form name="main1"  method="post" action="Registration.jsp">
+								<input type="hidden" name="status" value="adduser" >
+								<input type="hidden" name="back" value="Registration" >
+								<input type="submit" name="ter" value="Add New User" >
+							</form>
+							<%-- <button>
 								<c:set var="status" value="adduser" scope="session" ></c:set>
 								<a href="Registration.jsp?status=adduser&back=Registration"> Add New User</a>
-							</button>
+							</button> --%>
 						</div>
 					</div>
 				</div>
@@ -99,7 +103,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="resources/js/datatable.js"></script>
-	<script type="text/javascript" src="resources/js/showmessage.js"></script>
+	<script type="text/javascript" src="resource/js/datatable.js"></script>
+	<script type="text/javascript" src="resource/js/showmessage.js"></script>
 </body>
 </html>

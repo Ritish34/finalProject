@@ -9,27 +9,27 @@ import java.util.List;
 import model.User;
 
 public interface UserDB {
-	public boolean checkEmail(String query) throws ClassNotFoundException, SQLException;
+	boolean checkEmail(String query) throws ClassNotFoundException, SQLException,IOException;
 	
-	public int getUserid(String email) throws ClassNotFoundException, SQLException;
+	int getUserid(String email) throws ClassNotFoundException, SQLException,IOException;
 	
-	public int saveUserData(User obj,InputStream image) throws ClassNotFoundException, SQLException, FileNotFoundException;
+	int saveUserData(User obj,InputStream image) throws ClassNotFoundException, SQLException, FileNotFoundException,IOException;
 	
-	public User getRole(String email,String pass) throws ClassNotFoundException, SQLException ;
+	User getRole(String email,String pass) throws ClassNotFoundException, SQLException,IOException ;
 
-	public List<User> getAllUser() throws SQLException, ClassNotFoundException;
+	List<User> getAllUser() throws SQLException, ClassNotFoundException,IOException;
 	
-	public int deleteUserById(int UserId) throws SQLException, ClassNotFoundException;
+	int deleteUserById(int UserId) throws SQLException, ClassNotFoundException,IOException;
 	
-	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
+	List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
 
-	InputStream getImage(String email) throws SQLException, ClassNotFoundException;
+	InputStream getImage(String email) throws SQLException, ClassNotFoundException, IOException;
 
-	boolean updateUser(User user) throws ClassNotFoundException, SQLException;
+	boolean updateUser(User user) throws ClassNotFoundException, SQLException,IOException;
 
-	boolean setImage(String email, InputStream image) throws SQLException, ClassNotFoundException;
+	boolean setImage(String email, InputStream image) throws SQLException, ClassNotFoundException,IOException;
 
-	boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException;
+	boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException, IOException;
 
-	String getPass(String email) throws SQLException, ClassNotFoundException;
+	String getPass(String email) throws SQLException, ClassNotFoundException,IOException;
 }

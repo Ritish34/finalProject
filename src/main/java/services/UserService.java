@@ -13,22 +13,22 @@ import model.Address;
 import model.User;
 
 public interface UserService {
-	public boolean checkDupEmail(String email) throws ClassNotFoundException, SQLException; 
+	boolean checkDupEmail(String email) throws ClassNotFoundException, SQLException, IOException; 
 	
-	public User getUserRole(String email, String pass) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException ;
+	User getUserRole(String email, String pass) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, IOException ;
 	
-	public boolean saveUser(User user, ArrayList<Address> list,Part filePart) throws NoSuchAlgorithmException, ParseException,
+	boolean saveUser(User user, ArrayList<Address> list,Part filePart) throws NoSuchAlgorithmException, ParseException,
 	ClassNotFoundException, SQLException, IOException;
 	
-	public List<User> getAllUser() throws ClassNotFoundException, SQLException;
+	List<User> getAllUser() throws ClassNotFoundException, SQLException, IOException;
 	
-	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException ;
+	int deleteUserById(int UserId) throws ClassNotFoundException, SQLException, IOException ;
 
-	public List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
+	List<User> getUser(int userid) throws ClassNotFoundException, SQLException, IOException;
 
-	public int updateUser(User user, Part filePart) throws IOException, ClassNotFoundException, SQLException;
+	int updateUser(User user, Part filePart) throws IOException, ClassNotFoundException, SQLException;
 
 	boolean updatePassword(String pass, String email)
-			throws ClassNotFoundException, SQLException, NoSuchAlgorithmException;
+			throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, IOException;
 	
 }

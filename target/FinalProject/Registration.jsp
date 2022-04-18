@@ -14,19 +14,19 @@
     <title>New User Registration Form</title>
 
     <!-- Icons font CSS-->
-    <link href="resources/reg/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="resources/reg/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
     <!-- Vendor CSS-->
-    <link href="resources/reg/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="resources/reg/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="resources/reg/css/main.css" rel="stylesheet" media="all">
+    <link href="resource/reg/css/main.css" rel="stylesheet" media="all">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="resources/reg/css/style.css">
+    <link rel="stylesheet" href="resource/reg/css/style.css">
     
     <!-- custom alert cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,12 +36,14 @@
 
 <body>
 <%
-response.setHeader("Cache-Control", "no-cache , must-revalidate"); //HTTP 1.1   must-revalidate
+response.setHeader("Cache-Control", "no-cache, no-store , must-revalidate"); //HTTP 1.1   must-revalidate
 
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 
 response.setHeader("Expires" ,"0"); //Proxy
 %>
+<c:choose>
+  <c:when test="${param.back == 'Registration' || requestScope.back == 'Registration' }">
 	<c:if test="${sessionScope.username != null}">
 		<jsp:include page="Header.jsp"></jsp:include>
 	</c:if>
@@ -52,24 +54,24 @@ response.setHeader("Expires" ,"0"); //Proxy
                 <div class="card-heading">
                 <c:if test="${param.status == 'edituser' }">
                 	<h2 class="title"> Edit Profile </h2>
-                    <h4 id="result"></h4>
+                    <h4 id="result">${requestScope.error }</h4>
                     <input type="hidden" id="userid" value="${param.UserId }" />
                     <input type="hidden" id="hiddentype" value="${param.status }" />
                 </c:if>
                 <c:if test="${requestScope.status == 'edituser'}">
                 	<h2 class="title"> Edit Profile </h2>
-                    <h4 id="result"></h4>
+                    <h4 id="result">${requestScope.error }</h4>
                     <input type="hidden" id="userid" value="${requestScope.UserId }" />
                     <input type="hidden" id="hiddentype" value="${requestScope.status }" />
                 </c:if>
                 <c:if test="${param.status == 'adduser' || requestScope.status == 'adduser'}">
                 	<h2 class="title"> Add User </h2>
-                    <h4 id="result"><c:out value="${param.last_name }"></c:out></h4>
+                    <h4 id="result">${requestScope.error }</h4>
                     <input type="hidden" id="hiddentype" value="${param.status }" />
                 </c:if>
                 <c:if test="${sessionScope.username == null }">
                     <h2 class="title"> Registration Form</h2>
-                    <h4 id="result"></h4>
+                    <h4 id="result">${requestScope.error }</h4>
                 </c:if>
                 </div>
                 <div class="card-body">
@@ -87,7 +89,7 @@ response.setHeader("Expires" ,"0"); //Proxy
                                     <div class="col-2">
                                         <div class="input-group-desc"> 
                                             <label class="label--desc">Last Name</label>                                          
-                                            <input class="input--style-5" type="text" name="last_name" id="lname" value="${requestScope.last_name }" placeholder="Lastname">
+                                            <input class="input--style-5" type="text" name="last_name" id="lname" value='<c:out value="${requestScope.last_name }"></c:out>' placeholder="Lastname">
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +130,7 @@ response.setHeader("Expires" ,"0"); //Proxy
                                 <div class="row row-refine">
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-4" type="date" name="date" id="dob" value='<c:out value="${requestScope.date }"></c:out>'>
+                                            <input class="input--style-4"  type="date" name="date" id="dob" value='<c:out value="${requestScope.date }"></c:out>'>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +183,7 @@ response.setHeader("Expires" ,"0"); //Proxy
                             <div class="name"> Image Upload</div>
                             <div class="value upload-image">
                                 <label for="new_image" class="custom-file-upload"><i class="fa fa-cloud-upload"></i> Image Upload</label>
-                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " required/>
+                                <input id="new_image" type = "file"  name = "image" accept=".jpg, .jpeg, .png " />
                             </div>
                         </div>
                         <div >
@@ -205,13 +207,13 @@ response.setHeader("Expires" ,"0"); //Proxy
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">Zipcode</label>
-                                                        <input class="input--style-5 w-50 m-t-b-20" id="zip" type="text" name="zip[]" placeholder="Zipcode" required>
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="zip" type="text" name="zip[]" placeholder="Zipcode" >
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">City</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-20" id="city" type="text" name="city[]" placeholder="City" required>
+                                                        <input class="input--style-5 w-50 m-t-b-20" id="city" type="text" name="city[]" placeholder="City" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,13 +221,13 @@ response.setHeader("Expires" ,"0"); //Proxy
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40">
                                                         <label class="label--desc">State</label>
-                                                        <input class="input--style-5 w-50 m-t-b-15" id="state" type="text" name="state[]" placeholder="State" required>
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="state" type="text" name="state[]" placeholder="State" >
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="input-group-desc m-b-40"> 
                                                         <label class="label--desc">Country</label>                                          
-                                                        <input class="input--style-5 w-50 m-t-b-15" id="country" type="text" name="contry[]" placeholder="Contry" required>
+                                                        <input class="input--style-5 w-50 m-t-b-15" id="country" type="text" name="contry[]" placeholder="Contry" >
                                                     </div>
                                                 </div>
                                                 <button class="custombtn btn--blue remove_btn invisible n-m-b-20" type="button">Remove</button>
@@ -248,26 +250,33 @@ response.setHeader("Expires" ,"0"); //Proxy
         </div>
     </div>
     
+    	<c:if test="${sessionScope.username != null}">
     		<footer>
 				<%@ include file="Footer.jsp"%>
 			</footer>
-
+		</c:if>	
+    
+    </c:when>
+		<c:otherwise>
+			<jsp:forward page="index.jsp"></jsp:forward>
+		</c:otherwise>
+	</c:choose>
 
     <!-- Jquery JS-->
-    <script src="resources/reg/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/reg/vendor/jquery/jquery.min.js"></script>
     <!-- Validation js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <!-- Vendor JS-->
-    <script src="resources/reg/vendor/select2/select2.min.js"></script>
-    <script src="resources/reg/vendor/datepicker/moment.min.js"></script>
-    <script src="resources/reg/vendor/datepicker/daterangepicker.js"></script>
+    <script src="resource/reg/vendor/select2/select2.min.js"></script>
+    <script src="resource/reg/vendor/datepicker/moment.min.js"></script>
+<!--     <script src="resource/reg/vendor/datepicker/daterangepicker.js"></script> -->
 
-    <script src="resources/reg/js/jquery.duplicate.js"></script>
+    <script src="resource/reg/js/jquery.duplicate.js"></script>
 
     <!-- Main JS-->
-    <script src="resources/reg/js/global.js"></script>
+    <script src="resource/reg/js/global.js"></script>
     <!-- Custom JS -->
-    <script src="resources/reg/js/custom.js"></script>
+    <script src="resource/reg/js/custom.js"></script>
 
 </body>
 

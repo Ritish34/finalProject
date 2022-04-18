@@ -20,11 +20,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import model.Address;
-import model.User;
 import services.AddressService;
 import services.AddressServiceImp;
-import services.UserService;
-import services.UserServiceImp;
+
 
 /**
  * Servlet implementation class GetAddressData
@@ -47,6 +45,7 @@ public class GetAddressData extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
@@ -77,15 +76,16 @@ public class GetAddressData extends HttpServlet {
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 
 			  json.add("data", gson.toJsonTree(list)); 
-			  out.print(json);
+			  out.print (json);
 			 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
-			out.print(e);
+//			out.print(e);
 		}
 		finally {
 			//out closed
+			if(out != null)
 			out.close();
 		}
 	}

@@ -32,6 +32,6 @@ response.setHeader("Expires" ,"0"); //Proxy
 		<div class="container">
 			<p>@Copyrights</p>
 		</div>
-	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resource/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

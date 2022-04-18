@@ -2,10 +2,9 @@ package util;
 
 import java.util.Properties;
 
-import javax.mail.*;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -35,11 +34,11 @@ public class SendEmail {
 			message.setText("Your New Password = "+pass);
 			// send message
 			Transport.send(message);
-			return ("Sent message successfully....");
+			return "Sent message successfully....";
 		} catch (MessagingException e) {
 			System.out.print(e);
 		}
-		return ("Fail");
+		return "Fail";
 	}
 }	
 	

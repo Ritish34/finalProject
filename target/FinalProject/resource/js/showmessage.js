@@ -21,10 +21,16 @@ $(document).ready(function(){
 			title: 'Oops,Something Wrong!! User can\'t be updated'
 	  })
 	}
-	else{
+	else if(message == 'success'){
 		Toast.fire({
 			icon: 'success',
 			title: 'User Upadted'
+	  })
+	}
+	else{
+		Toast.fire({
+			icon: 'success',
+			title: 'User Added'
 	  })
 	}  
 	$("#response").remove();

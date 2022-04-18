@@ -15,10 +15,18 @@ $(document).ready(function() {
 
     }
     else{
-        Toast.fire({
+		if(messge === 'success'){
+			Toast.fire({
+            icon: 'success',
+            title: 'User Sucessfully Registered'
+     		})
+		}
+		else{
+			Toast.fire({
             icon: 'error',
             title: messge
-      })
+     	 	})
+		}
     }
      $("#response").remove();
 });

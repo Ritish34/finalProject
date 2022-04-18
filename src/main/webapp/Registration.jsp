@@ -14,19 +14,19 @@
     <title>New User Registration Form</title>
 
     <!-- Icons font CSS-->
-    <link href="resources/reg/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="resources/reg/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
     <!-- Vendor CSS-->
-    <link href="resources/reg/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="resources/reg/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="resource/reg/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="resources/reg/css/main.css" rel="stylesheet" media="all">
+    <link href="resource/reg/css/main.css" rel="stylesheet" media="all">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="resources/reg/css/style.css">
+    <link rel="stylesheet" href="resource/reg/css/style.css">
     
     <!-- custom alert cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,14 +36,14 @@
 
 <body>
 <%
-response.setHeader("Cache-Control", "no-cache , must-revalidate"); //HTTP 1.1   must-revalidate
+response.setHeader("Cache-Control", "no-cache, no-store , must-revalidate"); //HTTP 1.1   must-revalidate
 
 response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 
 response.setHeader("Expires" ,"0"); //Proxy
 %>
 <c:choose>
-		<c:when test="${param.back == 'Registration' || requestScope.back == 'Registration' }">
+  <c:when test="${param.back == 'Registration' || requestScope.back == 'Registration' }">
 	<c:if test="${sessionScope.username != null}">
 		<jsp:include page="Header.jsp"></jsp:include>
 	</c:if>
@@ -263,20 +263,20 @@ response.setHeader("Expires" ,"0"); //Proxy
 	</c:choose>
 
     <!-- Jquery JS-->
-    <script src="resources/reg/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/reg/vendor/jquery/jquery.min.js"></script>
     <!-- Validation js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <!-- Vendor JS-->
-    <script src="resources/reg/vendor/select2/select2.min.js"></script>
-    <script src="resources/reg/vendor/datepicker/moment.min.js"></script>
-<!--     <script src="resources/reg/vendor/datepicker/daterangepicker.js"></script> -->
+    <script src="resource/reg/vendor/select2/select2.min.js"></script>
+    <script src="resource/reg/vendor/datepicker/moment.min.js"></script>
+<!--     <script src="resource/reg/vendor/datepicker/daterangepicker.js"></script> -->
 
-    <script src="resources/reg/js/jquery.duplicate.js"></script>
+    <script src="resource/reg/js/jquery.duplicate.js"></script>
 
     <!-- Main JS-->
-    <script src="resources/reg/js/global.js"></script>
+    <script src="resource/reg/js/global.js"></script>
     <!-- Custom JS -->
-    <script src="resources/reg/js/custom.js"></script>
+    <script src="resource/reg/js/custom.js"></script>
 
 </body>
 

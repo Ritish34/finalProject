@@ -1,5 +1,6 @@
 package services;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,13 +11,13 @@ import model.Address;
 public class AddressServiceImp implements AddressService{
 
 	@Override
-	public boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException {
+	public boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		AddressDB dao = new AddressDbImp();
 			return dao.saveAddress(obj);
 	}
 	
-	public boolean saveAdd(List<Address> list,int userid) throws ClassNotFoundException, SQLException {
+	public boolean saveAdd(List<Address> list,int userid) throws ClassNotFoundException, SQLException,IOException {
 		
 		boolean flag = false;
 		boolean flag1 = false;
@@ -69,7 +70,7 @@ public class AddressServiceImp implements AddressService{
 	}
 
 	@Override
-	public List<Address> getUserAddress(int userid) throws ClassNotFoundException, SQLException {
+	public List<Address> getUserAddress(int userid) throws ClassNotFoundException, SQLException,IOException {
 		// TODO Auto-generated method stub
 		AddressDB dao = new AddressDbImp();
 		
@@ -77,7 +78,7 @@ public class AddressServiceImp implements AddressService{
 	}
 	
 	@Override
-	public boolean deleteAddress(String[] arr) throws NumberFormatException, ClassNotFoundException, SQLException {
+	public boolean deleteAddress(String[] arr) throws NumberFormatException, ClassNotFoundException, SQLException,IOException {
 		boolean flag = false;
 		if(arr.length == 0) {
 			return flag;
@@ -91,7 +92,7 @@ public class AddressServiceImp implements AddressService{
 	}
 	
 	@Override
-	public boolean updateAddress(List<Address> list, List<Address> updatelist,int userid) throws ClassNotFoundException, SQLException {
+	public boolean updateAddress(List<Address> list, List<Address> updatelist,int userid) throws ClassNotFoundException, SQLException, IOException {
 		boolean flag = false;
 			
 		if(!list.isEmpty()) {

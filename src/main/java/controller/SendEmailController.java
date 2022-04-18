@@ -72,10 +72,11 @@ public class SendEmailController extends HttpServlet {
 		} catch (ClassNotFoundException | NoSuchAlgorithmException | SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
-			out.print(e);
+//			out.print(e);
 		}
 		finally {
 			//out closed
+			if(out != null)
 			out.close();
 		}
 	}

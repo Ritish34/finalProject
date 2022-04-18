@@ -15,7 +15,7 @@
 		<button type="submit" id="submit" >Send Password</button>
 	</form>
 	
-	<script src="resources/reg/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/js/forgetPassword.js"></script>
+	<script src="resource/reg/vendor/jquery/jquery.min.js"></script>
+	<script src="resource/js/forgetPassword.js"></script>
 </body>
 </html>

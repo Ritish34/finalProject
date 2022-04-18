@@ -1,16 +1,17 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import model.Address;
 
 public interface AddressDB {
-	public boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException;
+	boolean saveAddress(Address obj) throws ClassNotFoundException, SQLException,IOException;
 
-	public List<Address> getAddress(int userid) throws SQLException, ClassNotFoundException;
+	List<Address> getAddress(int userid) throws SQLException, ClassNotFoundException,IOException;
 
-	public boolean deleteAddress(int id) throws ClassNotFoundException, SQLException;
+	boolean deleteAddress(int id) throws ClassNotFoundException, SQLException,IOException;
 
-	boolean updateAddress(Address obj) throws ClassNotFoundException, SQLException;
+	boolean updateAddress(Address obj) throws ClassNotFoundException, SQLException,IOException;
 }

@@ -1,9 +1,7 @@
 package util;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map.Entry;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,12 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Part;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import controller.GetAddressData;
 
 /**
  * Servlet Filter implementation class ValidationFilter
@@ -52,7 +48,6 @@ public class ValidationFilter implements Filter {
 		logger.debug("inside filter");
 		StringBuilder error=new StringBuilder(""); 
 		
-		HashMap<String, String> map = new HashMap<String, String>();
 		String fname = request.getParameter("first_name");
 		String lname = request.getParameter("last_name");
 		String email = request.getParameter("email");
@@ -60,7 +55,6 @@ public class ValidationFilter implements Filter {
 		String date = request.getParameter("date");
 		String phone = request.getParameter("phone");
 		String gender = request.getParameter("gender");
-		String filePart = request.getParameter("image");
 		//take addresses
 		String[] address = request.getParameterValues("address[]");
 		String[] zip = request.getParameterValues("zip[]");
@@ -162,6 +156,6 @@ public class ValidationFilter implements Filter {
 		Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(element); 
         boolean flag = matcher.matches();
-        return (flag);
+        return flag;
 	}
 }

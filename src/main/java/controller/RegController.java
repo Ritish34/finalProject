@@ -60,14 +60,9 @@ public class RegController extends HttpServlet {
 		//convert checkbox data to string
 		StringBuffer buf = new StringBuffer();
 		String arr[]=request.getParameterValues("checkbox");
-		if(arr.length != 0) {
-			for(int i=0;i< arr.length;i++){
-				buf.append(arr[i]);
-				buf.append(" ");
-			}
-		}
-		else {
-			buf.append("Not Selected");
+		for(int i=0;i< arr.length;i++){
+			buf.append(arr[i]);
+			buf.append(" ");
 		}
 		String favlangs=buf.toString();
 		
@@ -116,13 +111,15 @@ public class RegController extends HttpServlet {
 				logger.info("Registration Sucessfull");
 				HttpSession session = request.getSession(false);
 				if (session.getAttribute("username") == null) {
-					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
+//					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Registered</h4></center>");
+					out.print("<input type='hidden' id='response' value='success'>");
 					RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 					rd.include(request, response);
 				} else {
 					request.setAttribute("status", "adduser");
 					request.setAttribute("back", "Registration");
-					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Added</h4></center>");
+					out.print("<input type='hidden' id='response' value='Added'>");
+//					out.print("<center><h4 style='color: #e2eae2;background:#9053c7;'>User Successfully Added</h4></center>");
 					RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 					rd.include(request, response);
 				}
@@ -131,14 +128,20 @@ public class RegController extends HttpServlet {
 				
 				logger.info("Registration Error");
 				request.setAttribute("back", "Registration");
-				out.print("<center><h4 style='color:red;background:#9053c7;'>Registration fails</h4></center>");
+				out.print("<input type='hidden' id='response' value='error'>");
+//				out.print("<center><h4 style='color:red;background:#9053c7;'>Registration fails</h4></center>");
 				RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 				rd.include(request, response);
 			}
+			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
+
+			response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+
+			response.setHeader("Expires" ,"0"); //Proxy
 		} catch (ClassNotFoundException | FileNotFoundException | SQLException | ParseException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			logger.debug(e);
-			out.print(e);
+//			out.print(e);
 		}
 		finally {
 			//out closed

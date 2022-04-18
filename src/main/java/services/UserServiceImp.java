@@ -1,5 +1,6 @@
 package services;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,9 +23,9 @@ import model.Address;
 
 public class UserServiceImp implements UserService {
 	// logger
-	private final static Logger logger = LogManager.getLogger(UserServiceImp.class);
+	private final static Logger logger = LogManager.getLogger(UserServiceImp.class.getName());
 
-	public boolean checkDupEmail(String email) throws ClassNotFoundException, SQLException {
+	public boolean checkDupEmail(String email) throws ClassNotFoundException, SQLException, IOException {
 
 		logger.info("inside userimp");
 		logger.debug("email => " + email);
@@ -40,7 +41,7 @@ public class UserServiceImp implements UserService {
 		}
 	}
 
-	public User getUserRole(String email, String pass) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public User getUserRole(String email, String pass) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, IOException {
 		UserDB dao = new UserDBimp();
 		
 		User user = new User();
@@ -73,9 +74,6 @@ public class UserServiceImp implements UserService {
 
 		InputStream inputStream= filePart.getInputStream();
 		
-		if(inputStream.available() == 0) {
-			inputStream = new FileInputStream("F:\\Inexture-Internship\\defualt image.jpg");
-		}
 		
 		Encryption en = new Encryption();
 
@@ -83,8 +81,18 @@ public class UserServiceImp implements UserService {
 
 		// create object of dao
 		UserDB dao = new UserDBimp();
-
-		int num = dao.saveUserData(user,inputStream);
+		
+		int num ;
+		
+		if(inputStream.available() == 0) {
+//			File folderInput = new File("");//D://eclipse-workspace//FinalProject//src//main//resources//image/defualtimage.jpg
+			try(InputStream newinputStream = new FileInputStream("D://eclipse-workspace//FinalProject//src//main//resources//image/defualtimage.jpg");){
+				num = dao.saveUserData(user,newinputStream);	
+			}
+		}
+		else {
+			num = dao.saveUserData(user,inputStream);
+		}
 		logger.debug("Address Store Sucessfully ? " + num);
 
 		if (num == 1) {
@@ -92,14 +100,6 @@ public class UserServiceImp implements UserService {
 			logger.debug(userid);
 
 			boolean flag = false;
-			
-			/*
-			 * AddressService ser = new AddressServiceImp();
-			 * 
-			 * for (Address a : list) {
-			 * 
-			 * a.setUserid(userid); flag = ser.saveAddress(a); if (!flag) { break; } }
-			 */
 			
 			AddressServiceImp ser = new AddressServiceImp();
 			
@@ -115,7 +115,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<User> getAllUser() throws ClassNotFoundException, SQLException {
+	public List<User> getAllUser() throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		UserDB dao = new UserDBimp();
 		
@@ -131,7 +131,7 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException {
+	public int deleteUserById(int UserId) throws ClassNotFoundException, SQLException, IOException {
 		UserDB dao = new UserDBimp();
 		
 		return dao.deleteUserById(UserId);
@@ -160,7 +160,7 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public boolean updatePassword(String pass, String email) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, IOException {
 		
 		Encryption en = new Encryption();
 		

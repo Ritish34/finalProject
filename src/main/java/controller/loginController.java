@@ -21,14 +21,14 @@ import services.UserService;
 import services.UserServiceImp;
 
 @WebServlet("/loginController")
-public class loginController extends HttpServlet {
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static Logger logger = LogManager.getLogger(loginController.class);
+	private final static Logger logger = LogManager.getLogger(LoginController.class);
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginController() {
+    public LoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -83,10 +83,12 @@ public class loginController extends HttpServlet {
 
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
-			out.print(e);
+			logger.debug(e);
+//			out.print(e);
 		}
 		finally {
 			//out closed
+			if(out != null)
 			out.close();
 		}
 		

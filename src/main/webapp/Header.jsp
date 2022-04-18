@@ -7,10 +7,10 @@
 <meta charset="ISO-8859-1">
 <title>Header File</title>
 <!-- Bootstrap -->
-    <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resource/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- custom css -->
-<link href="resources/css/header.css" rel="stylesheet">
+<link href="resource/css/header.css" rel="stylesheet">
     
     <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
@@ -52,7 +52,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 		</c:otherwise>
 	</c:choose>
       
-      <script src="resources/bootstrap/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="resources/bootstrap/js/header.js"></script>
+      <script src="resource/bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="resource/bootstrap/js/header.js"></script>
 </body>
 </html>

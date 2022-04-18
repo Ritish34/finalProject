@@ -50,6 +50,12 @@ $(function() {
 				rangelength : [10, 10],
 				number : true
 			},
+			date : {
+				required : true,
+			},
+			checkbox : {
+				required : true,
+			}
 		},
 		// Specify validation error messages
 		messages: {

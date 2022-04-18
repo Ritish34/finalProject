@@ -145,14 +145,19 @@ public class UpdateProfile extends HttpServlet {
 						RequestDispatcher rd = request.getRequestDispatcher("User-Dashboard.jsp");
 						rd.include(request, response);
 					}
-					
+					response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
+
+					response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+
+					response.setHeader("Expires" ,"0"); //Proxy
 				} catch (ClassNotFoundException | IOException | SQLException e) {
 					// TODO Auto-generated catch block
 					logger.debug(e);
-					out.print(e);
+//					out.print(e);
 				}
 				finally {
 					//out closed
+					if(out != null)
 					out.close();
 				}
 	}

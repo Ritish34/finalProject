@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Blob;
-
 public class User {
 	private int id;
 	private String fname;
@@ -13,7 +11,7 @@ public class User {
 	private String lang;
 	private String password;
 	private String role;
-	private Blob image;
+//	private Blob image;
 	private String base64Image;
 	/**
 	 * @return the base64Image
@@ -30,15 +28,16 @@ public class User {
 	/**
 	 * @return the image
 	 */
-	public Blob getImage() {
-		return image;
-	}
+	/*
+	 * public Blob getImage() { return image; }
+	 */
 	/**
 	 * @param image the image to set
 	 */
-	public void setImage(Blob image) {
-		this.image = image;
-	}
+
+	/*
+	 * public void setImage(Blob image) { this.image = image; }
+	 */
 	/**
 	 * @return the id
 	 */

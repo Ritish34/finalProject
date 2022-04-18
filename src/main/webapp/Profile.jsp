@@ -14,7 +14,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
 
 <!-- Add CSS File -->
-<link rel="stylesheet" type="text/css" href="resources/css/profile.css">	
+<link rel="stylesheet" type="text/css" href="resource/css/profile.css">	
 
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1   must-revalidate
@@ -82,9 +82,11 @@ response.setHeader("Expires" ,"0"); //Proxy
 														<h6 class="text-muted f-w-400" id="lang"></h6>
 													</div>
 													<div class="col-sm-12">
-														<button>
-															<a href="Registration.jsp?status=edituser&back=Registration">Edit Profile</a>
-														</button>
+														<form name="main"  method="post" action="Registration.jsp">
+															<input type="hidden" name="status" value="edituser" >
+															<input type="hidden" name="back" value="Registration" >
+       														<input type="submit" name="ter" value="Edit Profile" >
+   														</form>
 													</div>
 												</div>
 											</div>
@@ -112,7 +114,7 @@ response.setHeader("Expires" ,"0"); //Proxy
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
-		<script type="text/javascript" src="<c:url value = "resources/js/profile.js"/>" ></script>
+		<script type="text/javascript" src="<c:url value = "resource/js/profile.js"/>" ></script>
 
 </body>
 </html>
