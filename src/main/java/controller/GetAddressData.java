@@ -76,7 +76,7 @@ public class GetAddressData extends HttpServlet {
 			  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			  JsonObject json = new JsonObject(); 
 			  json.add("data", gson.toJsonTree(list)); 
-			  out.print (json);
+			  out.print(json);
 			 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
